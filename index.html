@@ -55,13 +55,13 @@
       <div>
         <h1 class="font-bold text-base sm:text-lg leading-tight flex items-center gap-2">
           Modular School Funnel Builder
-          <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-mono uppercase">v3.0 RSVP & FAQ Fixed</span>
+          <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-mono uppercase">Clean Testimonials</span>
         </h1>
-        <p class="text-xs text-slate-400">Atur Logo, Teks, FAQ Accordion, Testimoni Title & Form RSVP Pendaftaran</p>
+        <p class="text-xs text-slate-400">Builder Landing Page Sekolah Modular & Dynamic Block</p>
       </div>
     </div>
 
-    <!-- Switcher Layar -->
+    <!-- Switcher Skrin Preview -->
     <div class="hidden md:flex items-center bg-slate-800 p-1 rounded-xl border border-slate-700">
       <button onclick="setDeviceView('desktop')" id="btn-desktop" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-700 flex items-center gap-2 transition">
         <i class="fas fa-desktop"></i> PC/Laptop
@@ -70,14 +70,14 @@
         <i class="fas fa-tablet-alt"></i> Tablet
       </button>
       <button onclick="setDeviceView('mobile')" id="btn-mobile" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-2 transition">
-        <i class="fas fa-mobile-alt"></i> Hape (375px)
+        <i class="fas fa-mobile-alt"></i> Telefon (375px)
       </button>
     </div>
 
     <!-- Action Button Export -->
     <div class="flex items-center gap-3">
       <button onclick="openExportModal()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-lg transition">
-        <i class="fas fa-code"></i> Ekspor Kode HTML Siap Pakai
+        <i class="fas fa-code"></i> Eksport Kod HTML
       </button>
     </div>
   </header>
@@ -85,31 +85,31 @@
   <!-- SPLIT SCREEN WORKSPACE -->
   <div class="flex-1 flex overflow-hidden">
     
-    <!-- LEFT PANEL: MODULAR BLOCK EDITOR -->
+    <!-- PANEL KIRI: MODULAR BLOCK EDITOR -->
     <aside class="w-full lg:w-[500px] xl:w-[540px] bg-white border-r border-slate-200 flex flex-col h-full z-20 shadow-lg">
       
       <!-- Navigasi Tab Editor -->
       <div class="flex border-b border-slate-200 bg-slate-50 text-xs font-semibold overflow-x-auto">
         <button onclick="switchTab('tab-branding')" id="nav-tab-branding" class="tab-btn px-4 py-3 border-b-2 border-emerald-600 text-emerald-600 flex items-center gap-2 whitespace-nowrap">
-          <i class="fas fa-id-card"></i> Logo & Identitas
+          <i class="fas fa-id-card"></i> Logo & Identiti
         </button>
         <button onclick="switchTab('tab-hero')" id="nav-tab-hero" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
-          <i class="fas fa-image"></i> Hero & Tombol
+          <i class="fas fa-image"></i> Hero & Butang
         </button>
         <button onclick="switchTab('tab-badges')" id="nav-tab-badges" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
-          <i class="fas fa-certificate"></i> Ribbon Badges
+          <i class="fas fa-certificate"></i> Lencana Ribon
         </button>
         <button onclick="switchTab('tab-usps')" id="nav-tab-usps" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
-          <i class="fas fa-star"></i> Kartu USP
+          <i class="fas fa-star"></i> Kad USP
         </button>
         <button onclick="switchTab('tab-activities')" id="nav-tab-activities" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
-          <i class="fas fa-child"></i> Aktivitas
+          <i class="fas fa-child"></i> Aktiviti
         </button>
         <button onclick="switchTab('tab-testimonials')" id="nav-tab-testimonials" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
           <i class="fas fa-quote-left"></i> Testimoni & FAQ
         </button>
         <button onclick="switchTab('tab-integration')" id="nav-tab-integration" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
-          <i class="fas fa-paper-plane"></i> Form & RSVP
+          <i class="fas fa-paper-plane"></i> Borang & RSVP
         </button>
       </div>
 
@@ -119,15 +119,15 @@
         <!-- TAB 1: LOGO & IDENTITAS -->
         <div id="tab-branding" class="tab-content space-y-4">
           <div class="border-b pb-2">
-            <h3 class="font-bold text-slate-800 text-sm">Logo Sekolah & Warna Theme</h3>
-            <p class="text-xs text-slate-500">Atur logo instansi, nama sekolah, warna, dan font judul.</p>
+            <h3 class="font-bold text-slate-800 text-sm">Logo Sekolah & Warna Tema</h3>
+            <p class="text-xs text-slate-500">Tetapkan logo institusi, nama sekolah, warna, dan fon tajuk.</p>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Tipe Logo Header</label>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Jenis Logo Header</label>
             <select id="cfg-logoType" onchange="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300">
-              <option value="initial">Inisial Huruf (Icon Bulat)</option>
-              <option value="image">Gambar Logo (URL Gambar PNG/JPG)</option>
+              <option value="initial">Inisial Huruf (Ikon Bulat)</option>
+              <option value="image">Gambar Logo (URL PNG/JPG)</option>
             </select>
           </div>
 
@@ -137,13 +137,13 @@
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Nama Sekolah / Instansi</label>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Nama Sekolah / Institusi</label>
             <input type="text" id="cfg-schoolName" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Sekolah Athalia KB-TK">
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Tagline / Sub-Nama Header</label>
-            <input type="text" id="cfg-schoolTagline" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Sit-In Class Program">
+            <label class="block text-xs font-bold text-slate-700 mb-1">Tagline Header</label>
+            <input type="text" id="cfg-schoolTagline" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Program Sit-In Class">
           </div>
 
           <div class="grid grid-cols-2 gap-3 pt-2">
@@ -152,47 +152,47 @@
               <input type="color" id="cfg-colorPrimary" onchange="updateState()" class="w-full h-9 rounded-lg border cursor-pointer" value="#094B5C">
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Warna Aksen Tombol (CTA)</label>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Warna Aksesori Butang (CTA)</label>
               <input type="color" id="cfg-colorAccent" onchange="updateState()" class="w-full h-9 rounded-lg border cursor-pointer" value="#FACC15">
             </div>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Font Judul Utama</label>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Gaya Fon Tajuk Utama</label>
             <select id="cfg-headingFont" onchange="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300">
-              <option value="font-poetsen">Poetsen One (Playful & Bold Tebal)</option>
-              <option value="font-fredoka">Fredoka (Ramah Bulat Anak)</option>
+              <option value="font-poetsen">Poetsen One (Playful & Tebal)</option>
+              <option value="font-fredoka">Fredoka (Ramah Bulat)</option>
               <option value="font-montserrat">Montserrat (Elegan Modern)</option>
-              <option value="font-jakarta">Plus Jakarta Sans (Clean)</option>
+              <option value="font-jakarta">Plus Jakarta Sans (Bersih)</option>
             </select>
           </div>
         </div>
 
-        <!-- TAB 2: HERO & TOMBOL -->
+        <!-- TAB 2: HERO & BUTTONS -->
         <div id="tab-hero" class="tab-content hidden space-y-4">
           <div class="border-b pb-2">
-            <h3 class="font-bold text-slate-800 text-sm">Hero Section & Tombol Aksi</h3>
-            <p class="text-xs text-slate-500">Atur banner pengunggah, headline, foto hero, dan teks tombol.</p>
+            <h3 class="font-bold text-slate-800 text-sm">Seksi Hero & Butang Tindakan</h3>
+            <p class="text-xs text-slate-500">Kemas kini pengumuman, tajuk, gambar hero, dan teks butang.</p>
           </div>
 
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Running Banner Ticker (Urgency Bar)</label>
-            <input type="text" id="cfg-urgencyText" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="🔥 SISA KUOTA TERBATAS: 7 Kursi Percobaan Gratis Bulan Ini!">
+            <input type="text" id="cfg-urgencyText" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="🔥 KUOTA TERHAD: Baki 7 Tempat Percubaan Percuma Bulan Ini!">
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Badge Tagline Atas Hero</label>
-            <input type="text" id="cfg-heroBadge" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="✨ Sesi Uji Coba Bebas Risiko">
+            <label class="block text-xs font-bold text-slate-700 mb-1">Badge Tagline Hero</label>
+            <input type="text" id="cfg-heroBadge" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="✨ Sesi Percubaan Bebas Risiko">
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Judul Utama Hero (Headline)</label>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Tajuk Utama Hero (Headline)</label>
             <input type="text" id="cfg-heroTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Little Hands, Big Wonder.">
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Sub-Judul Hero (Penjelasan Ringkas)</label>
-            <textarea id="cfg-heroSub" oninput="updateState()" rows="3" class="w-full text-xs p-2.5 rounded-lg border border-slate-300">Satu hari bermain di kelas KB-TK. Si kecil belajar langsung bersama murid dan guru kami lewat pengalaman nyata dan suasana penuh sukacita.</textarea>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Sub-Tajuk Hero</label>
+            <textarea id="cfg-heroSub" oninput="updateState()" rows="3" class="w-full text-xs p-2.5 rounded-lg border border-slate-300">Seharian bermain di kelas KB-TK. Si kecil belajar secara langsung bersama rakan dan guru kami melalui pengalaman nyata.</textarea>
           </div>
 
           <div>
@@ -202,81 +202,81 @@
 
           <div class="grid grid-cols-2 gap-3 pt-2">
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Teks Tombol CTA Utama</label>
-              <input type="text" id="cfg-btnPrimaryText" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Ikut Sit-In Class (Gratis)">
+              <label class="block text-xs font-bold text-slate-700 mb-1">Teks Butang CTA Utama</label>
+              <input type="text" id="cfg-btnPrimaryText" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Sertai Sit-In Class (Percuma)">
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Teks Tombol WA Secondary</label>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Teks Butang WA Sekunder</label>
               <input type="text" id="cfg-btnWAText" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Tanya Admin WA">
             </div>
           </div>
         </div>
 
-        <!-- TAB 3: RIBBON BADGES (DYNAMIC LIST) -->
+        <!-- TAB 3: RIBBON BADGES -->
         <div id="tab-badges" class="tab-content hidden space-y-4">
           <div class="flex justify-between items-center border-b pb-2">
             <div>
-              <h3 class="font-bold text-slate-800 text-sm">Highlight Ribbon Badges</h3>
-              <p class="text-xs text-slate-500">Poin ringkas penunjang konversi di bawah hero.</p>
+              <h3 class="font-bold text-slate-800 text-sm">Lencana Ribon Sorotan</h3>
+              <p class="text-xs text-slate-500">Poin ringkas pembantu penukaran di bawah hero.</p>
             </div>
             <button onclick="addItem('badges')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
-              <i class="fas fa-plus"></i> Tambah Badges
+              <i class="fas fa-plus"></i> Tambah Lencana
             </button>
           </div>
 
           <div id="badges-editor-list" class="space-y-3"></div>
         </div>
 
-        <!-- TAB 4: KARTU USP (DYNAMIC LIST) -->
+        <!-- TAB 4: KAD USP -->
         <div id="tab-usps" class="tab-content hidden space-y-4">
           <div class="flex justify-between items-center border-b pb-2">
             <div>
-              <h3 class="font-bold text-slate-800 text-sm">Kartu Keunggulan (USP)</h3>
-              <p class="text-xs text-slate-500">Menjawab kecemasan orang tua (Teacher Fit, dll).</p>
+              <h3 class="font-bold text-slate-800 text-sm">Kad Keutamaan (USP)</h3>
+              <p class="text-xs text-slate-500">Menjawab keraguan ibu bapa.</p>
             </div>
             <button onclick="addItem('usps')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
-              <i class="fas fa-plus"></i> Tambah Kartu USP
+              <i class="fas fa-plus"></i> Tambah Kad USP
             </button>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Judul Seksi USP</label>
-            <input type="text" id="cfg-uspSectionTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Kenapa Harus Mencoba Sit-In Class?">
+            <label class="block text-xs font-bold text-slate-700 mb-1">Tajuk Seksi USP</label>
+            <input type="text" id="cfg-uspSectionTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Mengenapa Perlu Mencuba Sit-In Class?">
           </div>
 
           <div id="usps-editor-list" class="space-y-3"></div>
         </div>
 
-        <!-- TAB 5: AKTIVITAS (DYNAMIC LIST) -->
+        <!-- TAB 5: AKTIVITI -->
         <div id="tab-activities" class="tab-content hidden space-y-4">
           <div class="flex justify-between items-center border-b pb-2">
             <div>
-              <h3 class="font-bold text-slate-800 text-sm">Aktivitas Belajar</h3>
-              <p class="text-xs text-slate-500">Materi eksplorasi di dalam kelas.</p>
+              <h3 class="font-bold text-slate-800 text-sm">Aktiviti Pembelajaran</h3>
+              <p class="text-xs text-slate-500">Modul eksplorasi dalam kelas.</p>
             </div>
             <button onclick="addItem('activities')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
-              <i class="fas fa-plus"></i> Tambah Aktivitas
+              <i class="fas fa-plus"></i> Tambah Aktiviti
             </button>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Judul Seksi Aktivitas</label>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Tajuk Seksi Aktiviti</label>
             <input type="text" id="cfg-actSectionTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Bukan Sekadar Melihat-Lihat">
           </div>
 
           <div id="activities-editor-list" class="space-y-3"></div>
         </div>
 
-        <!-- TAB 6: TESTIMONI & FAQ (DYNAMIC LIST & EDITABLE TITLE) -->
+        <!-- TAB 6: TESTIMONI & FAQ -->
         <div id="tab-testimonials" class="tab-content hidden space-y-6">
           <div class="space-y-3">
             <div class="border-b pb-2">
-              <label class="block text-xs font-bold text-slate-700 mb-1">Judul Seksi Testimoni</label>
-              <input type="text" id="cfg-testimonialSectionTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Kata Orang Tua Murid">
+              <label class="block text-xs font-bold text-slate-700 mb-1">Tajuk Seksi Testimoni</label>
+              <input type="text" id="cfg-testimonialSectionTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Kata Ibu Bapa Murid">
             </div>
 
             <div class="flex justify-between items-center pt-2">
-              <h4 class="font-bold text-slate-800 text-xs">Daftar Testimoni Orang Tua</h4>
+              <h4 class="font-bold text-slate-800 text-xs">Senarai Testimoni (Tanpa Foto)</h4>
               <button onclick="addItem('testimonials')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
                 <i class="fas fa-plus"></i> Tambah Testimoni
               </button>
@@ -286,12 +286,12 @@
 
           <div class="space-y-3 pt-4 border-t">
             <div class="border-b pb-2">
-              <label class="block text-xs font-bold text-slate-700 mb-1">Judul Seksi FAQ</label>
-              <input type="text" id="cfg-faqSectionTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Pertanyaan Sering Muncul (FAQ)">
+              <label class="block text-xs font-bold text-slate-700 mb-1">Tajuk Seksi FAQ</label>
+              <input type="text" id="cfg-faqSectionTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Soalan Kerap Ditanya (FAQ)">
             </div>
 
             <div class="flex justify-between items-center pt-2">
-              <h4 class="font-bold text-slate-800 text-xs">Daftar FAQ Accordion</h4>
+              <h4 class="font-bold text-slate-800 text-xs">Senarai Accordion FAQ</h4>
               <button onclick="addItem('faqs')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
                 <i class="fas fa-plus"></i> Tambah FAQ
               </button>
@@ -300,21 +300,21 @@
           </div>
         </div>
 
-        <!-- TAB 7: INTEGRASI FORM & RSVP WA -->
+        <!-- TAB 7: INTEGRASI BORANG & RSVP -->
         <div id="tab-integration" class="tab-content hidden space-y-4">
           <div class="border-b pb-2">
-            <h3 class="font-bold text-slate-800 text-sm">Form Pendaftaran, RSVP & Kontak WA</h3>
+            <h3 class="font-bold text-slate-800 text-sm">Borang Pendaftaran, RSVP & WA</h3>
             <p class="text-xs text-slate-500">Hubungkan pendaftaran ke Google Sheets & WhatsApp Admin.</p>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Judul Utama Formulir</label>
-            <input type="text" id="cfg-formTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Formulir Reservasi Tempat & RSVP">
+            <label class="block text-xs font-bold text-slate-700 mb-1">Tajuk Utama Borang</label>
+            <input type="text" id="cfg-formTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Borang Tempahan Tempat & RSVP">
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Sub-Judul Formulir</label>
-            <input type="text" id="cfg-formSubtitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Satu langkah kecil menuju masa depan emas si kecil. Confirm kehadiran Anda sekarang!">
+            <label class="block text-xs font-bold text-slate-700 mb-1">Sub-Tajuk Borang</label>
+            <input type="text" id="cfg-formSubtitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Langkah awal ke arah masa depan si kecil. Sahkan kehadiran anda sekarang!">
           </div>
 
           <div>
@@ -323,13 +323,13 @@
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Nomor WhatsApp Admin (Format 62...)</label>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Nombor WhatsApp Admin (Format 62...)</label>
             <input type="text" id="cfg-whatsapp" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="6287771414812">
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Pilihan Sesi Jadwal (Pisahkan Koma)</label>
-            <input type="text" id="cfg-sessions" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Sesi Sabtu Pagi (09.00 - 10.30 WIB), Sesi Sabtu Siang (11.00 - 12.30 WIB)">
+            <label class="block text-xs font-bold text-slate-700 mb-1">Pilihan Sesi Jadual (Asingkan Koma)</label>
+            <input type="text" id="cfg-sessions" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Sesi Sabtu Pagi (09.00 - 10.30 WIB), Sesi Sabtu Tengah Hari (11.00 - 12.30 WIB)">
           </div>
 
           <div>
@@ -355,18 +355,18 @@
     <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
       <div class="px-6 py-4 bg-slate-900 text-white flex justify-between items-center">
         <h3 class="font-bold text-base flex items-center gap-2">
-          <i class="fas fa-code text-emerald-400"></i> Kode HTML Standalone SIAP PAKAI
+          <i class="fas fa-code text-emerald-400"></i> Kod HTML Standalone SIAP GUNA
         </h3>
         <button onclick="closeExportModal()" class="text-slate-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
       </div>
       <div class="p-6 flex-1 overflow-y-auto space-y-3">
-        <p class="text-xs text-slate-600">Salin kode HTML di bawah ini dan simpan sebagai file <code class="bg-slate-100 px-1.5 py-0.5 rounded text-rose-600 font-mono text-xs">index.html</code>. Siap diupload ke Vercel atau GitHub Pages.</p>
+        <p class="text-xs text-slate-600">Salin kod HTML di bawah dan simpan sebagai fail <code class="bg-slate-100 px-1.5 py-0.5 rounded text-rose-600 font-mono text-xs">index.html</code>. Boleh terus dimuat naik ke Vercel atau GitHub Pages.</p>
         <textarea id="exportCodeTextarea" readonly class="w-full h-80 p-4 font-mono text-xs bg-slate-950 text-emerald-400 rounded-xl focus:outline-none border border-slate-800"></textarea>
       </div>
       <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex justify-end gap-3">
         <button onclick="closeExportModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800">Tutup</button>
         <button onclick="copyGeneratedHTML()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs px-5 py-2.5 rounded-xl flex items-center gap-2 shadow transition">
-          <i class="fas fa-copy"></i> Salin Seluruh Kode
+          <i class="fas fa-copy"></i> Salin Keseluruhan Kod
         </button>
       </div>
     </div>
@@ -378,56 +378,56 @@
       logoType: 'initial',
       logoUrl: '',
       schoolName: "Sekolah Athalia KB-TK",
-      schoolTagline: "Sit-In Class Program",
+      schoolTagline: "Program Sit-In Class",
       colorPrimary: '#094B5C',
       colorAccent: '#FACC15',
       headingFont: 'font-poetsen',
-      urgencyText: "🔥 SISA KUOTA TERBATAS: 7 Kursi Percobaan Gratis Bulan Ini!",
-      heroBadge: "✨ Sesi Uji Coba Bebas Risiko",
+      urgencyText: "🔥 KUOTA TERHAD: Baki 7 Tempat Percubaan Percuma Bulan Ini!",
+      heroBadge: "✨ Sesi Percubaan Bebas Risiko",
       heroTitle: "Little Hands, Big Wonder.",
-      heroSub: "Satu hari bermain di kelas KB-TK. Si kecil belajar langsung bersama murid dan guru kami lewat pengalaman nyata dan suasana penuh sukacita.",
+      heroSub: "Seharian bermain di kelas KB-TK. Si kecil belajar secara langsung bersama rakan dan guru kami melalui pengalaman nyata.",
       heroImg: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=800&q=80",
-      btnPrimaryText: "Ikut Sit-In Class (Gratis)",
+      btnPrimaryText: "Sertai Sit-In Class (Percuma)",
       btnWAText: "Tanya Admin WA",
       
       badges: [
-        { id: 1, title: "100% Gratis", sub: "Tanpa dipungut biaya" },
-        { id: 2, title: "Interaktif", sub: "60 Menit aktivitas nyata" },
-        { id: 3, title: "Pendampingan", sub: "Orang tua ikut masuk" },
-        { id: 4, title: "Kuota Terbatas", sub: "Maksimal 8 anak/sesi" }
+        { id: 1, title: "100% Percuma", sub: "Tanpa sebarang bayaran" },
+        { id: 2, title: "Interaktif", sub: "60 Minit aktiviti nyata" },
+        { id: 3, title: "Bimbingan", sub: "Ibu bapa ikut serta" },
+        { id: 4, title: "Kuota Terhad", sub: "Maksimum 8 anak/sesi" }
       ],
 
-      uspSectionTitle: "Kenapa Harus Mencoba Sit-In Class?",
+      uspSectionTitle: "Mengapa Perlu Mencoba Sit-In Class?",
       usps: [
-        { id: 1, icon: "fa-heart", title: "Teacher Fit & Guru Tanggap", desc: "Guru-guru terlatih yang sigap, hangat, dan mengerti pendekatan emosi anak." },
-        { id: 2, icon: "fa-smile", title: "Judgment-Free Environment", desc: "Orang tua dan anak merasa aman tanpa khawatir stigma negatif." },
-        { id: 3, icon: "fa-hands-helping", title: "Kemitraan Sejajar Orang Tua", desc: "Diskusi terbuka dan evaluasi berkala bersama orang tua." }
+        { id: 1, icon: "fa-heart", title: "Teacher Fit & Guru Peka", desc: "Guru terlatih yang mesra, prihatin, dan memahami pendekatan emosi kanak-kanak." },
+        { id: 2, icon: "fa-smile", title: "Judgment-Free Environment", desc: "Ibu bapa dan anak rasa diterima tanpa rasa bimbang dihakimi." },
+        { id: 3, icon: "fa-hands-helping", title: "Kerjasama Ibu Bapa & Sekolah", desc: "Perbincangan terbuka dan penilaian berkala bersama-sama." }
       ],
 
       actSectionTitle: "Bukan Sekadar Melihat-Lihat",
       activities: [
-        { id: 1, title: "✋ Meraba Tekstur", desc: "Mengenal dunia lewat sentuhan lembut, kasar, basah & kering." },
-        { id: 2, title: "🎭 Bermain Peran", desc: "Menjadi dokter, pedagang, atau koki bersama teman baru." },
-        { id: 3, title: "🌱 Menanam", desc: "Menyentuh tanah dan merawat tanaman dengan tangan sendiri." },
-        { id: 4, title: "🍳 Memasak", desc: "Mengaduk, menuang, dan mencicipi hasil karya kecilnya." }
+        { id: 1, title: "✋ Sentuhan Tekstur", desc: "Mengenal dunia melalui sentuhan lembut, kasar, basah & kering." },
+        { id: 2, title: "🎭 Main Peranan", desc: "Menjadi doktor, peniaga, atau tukang masak bersama rakan baharu." },
+        { id: 3, title: "🌱 Menanam", desc: "Menyentuh tanah dan menjaga tanaman dengan tangan sendiri." },
+        { id: 4, title: "🍳 Memasak", desc: "Mengacau, menuang, dan merasai hasil karya kecil mereka." }
       ],
 
-      testimonialSectionTitle: "Kata Orang Tua Murid",
+      testimonialSectionTitle: "Kata Ibu Bapa Murid",
       testimonials: [
-        { id: 1, name: "Ibu Maria", role: "Mama Kenzo (Usia 3 Thn)", photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80", quote: "Awalnya khawatir Kenzo pemalu, tapi gurunya sangat gercep merangkul. Kenzo langsung betah!" }
+        { id: 1, name: "Ibu Maria", role: "Mama Kenzo (Usia 3 Tahun)", quote: "Awalnya bimbang Kenzo pemalu, tapi gurunya sangat cekap merangkul. Kenzo terus selesa dan gembira!" }
       ],
 
-      faqSectionTitle: "Pertanyaan Sering Muncul (FAQ)",
+      faqSectionTitle: "Soalan Kerap Ditanya (FAQ)",
       faqs: [
-        { id: 1, q: "Apakah orang tua boleh menemani di kelas?", a: "Ya! Pada program Sit-In Class, orang tua dapat mendampingi si kecil secara penuh." },
-        { id: 2, q: "Berapa lama durasi setiap sesi?", a: "Setiap sesi berlangsung selama 60 hingga 90 menit penuh aktivitas interaktif." }
+        { id: 1, q: "Adakah ibu bapa boleh menemani di dalam kelas?", a: "Ya! Dalam program Sit-In Class, ibu bapa digalakkan menemani si kecil secara penuh." },
+        { id: 2, q: "Berapa lamakah tempoh setiap sesi?", a: "Setiap sesi berlangsung selama 60 hingga 90 minit penuh dengan aktiviti interaktif." }
       ],
 
-      formTitle: "Formulir Reservasi Tempat & RSVP",
-      formSubtitle: "Satu langkah kecil menuju masa depan emas si kecil. Confirm kehadiran Anda sekarang!",
+      formTitle: "Borang Tempahan Tempat & RSVP",
+      formSubtitle: "Langkah awal ke arah masa depan si kecil. Sahkan kehadiran anda sekarang!",
       scriptUrl: "",
       whatsapp: "6287771414812",
-      sessions: "Sesi Sabtu Pagi (09.00 - 10.30 WIB), Sesi Sabtu Siang (11.00 - 12.30 WIB)",
+      sessions: "Sesi Sabtu Pagi (09.00 - 10.30 WIB), Sesi Sabtu Tengah Hari (11.00 - 12.30 WIB)",
       footerAddress: "Regensi Melati Mas Blok B1, D1, B14, BSD, Serpong Utara, Tangerang Selatan"
     };
 
@@ -470,15 +470,15 @@
     function addItem(listName) {
       const id = Date.now();
       if(listName === 'badges') {
-        state.badges.push({ id, title: "Badge Baru", sub: "Keterangan ringkas" });
+        state.badges.push({ id, title: "Lencana Baharu", sub: "Keterangan ringkas" });
       } else if(listName === 'usps') {
-        state.usps.push({ id, icon: "fa-star", title: "Keunggulan Baru", desc: "Penjelasan keunggulan sekolah..." });
+        state.usps.push({ id, icon: "fa-star", title: "Keutamaan Baharu", desc: "Penerangan kelebihan sekolah..." });
       } else if(listName === 'activities') {
-        state.activities.push({ id, title: "✨ Aktivitas Baru", desc: "Deskripsi singkat aktivitas belajar..." });
+        state.activities.push({ id, title: "✨ Aktiviti Baharu", desc: "Deskripsi singkat aktiviti..." });
       } else if(listName === 'testimonials') {
-        state.testimonials.push({ id, name: "Nama Ortu", role: "Orang Tua Siswa", photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80", quote: "Ulasan positif mengenai sekolah..." });
+        state.testimonials.push({ id, name: "Nama Ibu Bapa", role: "Ibu Bapa Murid", quote: "Ulasan positif mengenai sekolah..." });
       } else if(listName === 'faqs') {
-        state.faqs.push({ id, q: "Pertanyaan Baru?", a: "Jawaban pertanyaan..." });
+        state.faqs.push({ id, q: "Soalan Baharu?", a: "Jawapan kepada soalan..." });
       }
       renderEditorLists();
       updateState();
@@ -536,8 +536,8 @@
             </div>
           </div>
           <div class="flex gap-2">
-            <input type="text" value="${item.icon}" oninput="updateItemField('usps', ${idx}, 'icon', this.value)" class="w-1/3 text-xs p-2 rounded border border-slate-300" placeholder="Icon Class (fa-heart)">
-            <input type="text" value="${item.title}" oninput="updateItemField('usps', ${idx}, 'title', this.value)" class="w-2/3 text-xs p-2 rounded border border-slate-300" placeholder="Judul Keunggulan">
+            <input type="text" value="${item.icon}" oninput="updateItemField('usps', ${idx}, 'icon', this.value)" class="w-1/3 text-xs p-2 rounded border border-slate-300" placeholder="Class Ikon (fa-heart)">
+            <input type="text" value="${item.title}" oninput="updateItemField('usps', ${idx}, 'title', this.value)" class="w-2/3 text-xs p-2 rounded border border-slate-300" placeholder="Tajuk USP">
           </div>
           <textarea oninput="updateItemField('usps', ${idx}, 'desc', this.value)" rows="2" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Deskripsi USP">${item.desc}</textarea>
         </div>
@@ -548,19 +548,19 @@
       actContainer.innerHTML = state.activities.map((item, idx) => `
         <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
           <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-slate-700">Aktivitas #${idx+1}</span>
+            <span class="text-xs font-bold text-slate-700">Aktiviti #${idx+1}</span>
             <div class="flex items-center gap-1">
               <button onclick="moveItem('activities', ${idx}, -1)" class="p-1 text-slate-500 hover:text-slate-800 text-xs"><i class="fas fa-arrow-up"></i></button>
               <button onclick="moveItem('activities', ${idx}, 1)" class="p-1 text-slate-500 hover:text-slate-800 text-xs"><i class="fas fa-arrow-down"></i></button>
               <button onclick="deleteItem('activities', ${idx})" class="p-1 text-rose-500 hover:text-rose-700 text-xs"><i class="fas fa-trash"></i></button>
             </div>
           </div>
-          <input type="text" value="${item.title}" oninput="updateItemField('activities', ${idx}, 'title', this.value)" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Judul Aktivitas">
-          <textarea oninput="updateItemField('activities', ${idx}, 'desc', this.value)" rows="2" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Deskripsi Aktivitas">${item.desc}</textarea>
+          <input type="text" value="${item.title}" oninput="updateItemField('activities', ${idx}, 'title', this.value)" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Tajuk Aktiviti">
+          <textarea oninput="updateItemField('activities', ${idx}, 'desc', this.value)" rows="2" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Deskripsi Aktiviti">${item.desc}</textarea>
         </div>
       `).join('');
 
-      // Testimonials Editor
+      // Testimonials Editor (Without Photo Field)
       const testContainer = document.getElementById('testimonials-editor-list');
       testContainer.innerHTML = state.testimonials.map((item, idx) => `
         <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
@@ -573,10 +573,10 @@
             </div>
           </div>
           <div class="grid grid-cols-2 gap-2">
-            <input type="text" value="${item.name}" oninput="updateItemField('testimonials', ${idx}, 'name', this.value)" class="text-xs p-2 rounded border border-slate-300" placeholder="Nama Ortu">
+            <input type="text" value="${item.name}" oninput="updateItemField('testimonials', ${idx}, 'name', this.value)" class="text-xs p-2 rounded border border-slate-300" placeholder="Nama Ibu Bapa">
             <input type="text" value="${item.role}" oninput="updateItemField('testimonials', ${idx}, 'role', this.value)" class="text-xs p-2 rounded border border-slate-300" placeholder="Keterangan">
           </div>
-          <textarea oninput="updateItemField('testimonials', ${idx}, 'quote', this.value)" rows="2" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Kutipan Ulasan">${item.quote}</textarea>
+          <textarea oninput="updateItemField('testimonials', ${idx}, 'quote', this.value)" rows="2" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Petikan Ulasan">${item.quote}</textarea>
         </div>
       `).join('');
 
@@ -592,8 +592,8 @@
               <button onclick="deleteItem('faqs', ${idx})" class="p-1 text-rose-500 text-xs"><i class="fas fa-trash"></i></button>
             </div>
           </div>
-          <input type="text" value="${item.q}" oninput="updateItemField('faqs', ${idx}, 'q', this.value)" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Pertanyaan">
-          <textarea oninput="updateItemField('faqs', ${idx}, 'a', this.value)" rows="2" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Jawaban">${item.a}</textarea>
+          <input type="text" value="${item.q}" oninput="updateItemField('faqs', ${idx}, 'q', this.value)" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Soalan">
+          <textarea oninput="updateItemField('faqs', ${idx}, 'a', this.value)" rows="2" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Jawapan">${item.a}</textarea>
         </div>
       `).join('');
     }
@@ -624,7 +624,6 @@
       state.sessions = document.getElementById('cfg-sessions').value;
       state.footerAddress = document.getElementById('cfg-footerAddress').value;
 
-      // Toggle logo url visibility
       const logoUrlBox = document.getElementById('logoUrlContainer');
       if(state.logoType === 'image') {
         logoUrlBox.classList.remove('hidden');
@@ -738,16 +737,18 @@
             </div>
           </section>
 
-          <!-- TESTIMONIALS SECTION -->
+          <!-- TESTIMONIALS SECTION (CLEAN - TANPA FOTO) -->
           ${state.testimonials.length > 0 ? `
           <section class="max-w-4xl mx-auto px-4 py-12">
             <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl text-center mb-6">${state.testimonialSectionTitle}</h2>
             <div class="grid gap-4">
               ${state.testimonials.map(t => `
-                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-start gap-4">
-                  <img src="${t.photo}" class="w-12 h-12 rounded-full object-cover border-2 border-emerald-100">
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-start gap-4">
+                  <div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex-shrink-0 flex items-center justify-center font-bold text-base">
+                    <i class="fas fa-quote-left"></i>
+                  </div>
                   <div>
-                    <p class="text-xs text-slate-600 italic">"${t.quote}"</p>
+                    <p class="text-xs sm:text-sm text-slate-600 italic leading-relaxed">"${t.quote}"</p>
                     <span class="block text-xs font-bold text-slate-800 mt-2">${t.name} <span class="font-normal text-slate-400">(${t.role})</span></span>
                   </div>
                 </div>
@@ -783,8 +784,8 @@
               </div>
               <form onsubmit="event.preventDefault(); alert('Ini tampilan live preview.');" class="space-y-4">
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">Nama Orang Tua</label>
-                  <input type="text" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs" placeholder="Contoh: Ibu Maria">
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Nama Ibu Bapa / Penjaga</label>
+                  <input type="text" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs" placeholder="Contoh: Puan Maria">
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                   <div>
@@ -792,25 +793,25 @@
                     <input type="text" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs" placeholder="Contoh: Kenzo">
                   </div>
                   <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1">Usia Anak</label>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Umur Anak</label>
                     <input type="text" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs" placeholder="Contoh: 3 Tahun">
                   </div>
                 </div>
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">Nomor WhatsApp Active</label>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Nombor WhatsApp Aktif</label>
                   <input type="tel" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs" placeholder="08123456789">
                 </div>
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Sesi Uji Coba</label>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Sesi Percubaan</label>
                   <select required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white">
                     ${sessionOptions}
                   </select>
                 </div>
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">Konfirmasi Kehadiran RSVP</label>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Pengesahan Kehadiran RSVP</label>
                   <select required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white">
-                    <option value="Pasti Hadir Sesuai Jadwal">✅ Pasti Hadir Sesuai Jadwal</option>
-                    <option value="Butuh Konfirmasi Admin Dulu">💬 Butuh Tanya Admin Dulu Via WA</option>
+                    <option value="Pasti Hadir Mengikut Jadual">✅ Pasti Hadir Mengikut Jadual</option>
+                    <option value="Perlu Bertanya Admin Dulu">💬 Perlu Bertanya Admin Menerusi WA</option>
                   </select>
                 </div>
                 <button type="submit" style="background-color: ${state.colorAccent}" class="w-full text-slate-950 font-extrabold py-3.5 rounded-xl shadow-lg transition text-xs sm:text-sm">
@@ -823,7 +824,7 @@
           <footer class="bg-slate-900 text-white py-8 px-4 text-center text-xs text-slate-400">
             <p class="${state.headingFont} text-white text-sm mb-1">${state.schoolName}</p>
             <p class="max-w-md mx-auto mb-4">${state.footerAddress}</p>
-            <p>© 2026 ${state.schoolName}. All rights reserved.</p>
+            <p>© 2026 ${state.schoolName}. Hak cipta terpelihara.</p>
           </footer>
 
           <a href="https://wa.me/${state.whatsapp}?text=Halo%20Admin" target="_blank" class="fixed bottom-5 right-5 bg-emerald-500 hover:bg-emerald-600 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center text-2xl z-40">
@@ -871,7 +872,7 @@
       const textarea = document.getElementById('exportCodeTextarea');
       textarea.select();
       document.execCommand('copy');
-      alert('Kode HTML berhasil disalin ke clipboard!');
+      alert('Kod HTML berjaya disalin ke papan klip!');
     }
 
     window.onload = function() {
