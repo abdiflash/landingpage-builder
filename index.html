@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Universal School Landing Page Builder & Funnel Generator</title>
+  <title>Universal Modular School Landing Page Builder</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -11,7 +11,7 @@
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Google Fonts: Poetsen One, Fredoka, Plus Jakarta Sans, Montserrat -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Montserrat:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poetsen+One&display=swap" rel="stylesheet">
@@ -34,12 +34,10 @@
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     
-    /* Device frames untuk Live Canvas Preview */
     .view-desktop { width: 100%; height: 100%; transition: all 0.3s ease; }
     .view-tablet { width: 768px; height: 90%; margin: 20px auto; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); overflow-y: auto; border: 8px solid #334155; }
     .view-mobile { width: 375px; height: 85%; margin: 20px auto; border-radius: 36px; border: 10px solid #1e293b; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3); overflow-y: auto; }
 
-    /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #f1f5f9; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
@@ -48,249 +46,282 @@
 </head>
 <body class="bg-slate-100 text-slate-800 h-screen overflow-hidden flex flex-col">
 
-  <!-- TOP APP NAVIGATION BAR -->
+  <!-- TOP HEADER BUILDER -->
   <header class="bg-slate-900 text-white px-6 py-3 flex items-center justify-between shadow-md z-30">
     <div class="flex items-center gap-3">
       <div class="bg-emerald-500 text-slate-950 font-bold p-2.5 rounded-xl flex items-center justify-center">
-        <i class="fas fa-rocket text-xl"></i>
+        <i class="fas fa-cubes text-xl"></i>
       </div>
       <div>
         <h1 class="font-bold text-base sm:text-lg leading-tight flex items-center gap-2">
-          Universal School Funnel Studio
-          <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-mono uppercase">v2.0 No-Code</span>
+          Modular School Funnel Builder
+          <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-mono uppercase">Full Dynamic Block</span>
         </h1>
-        <p class="text-xs text-slate-400">Generator Landing Page Sekolah High-Conversion</p>
+        <p class="text-xs text-slate-400">Atur Logo, Teks, Icon, Tombol, Tambah/Hapus/Geser Elemen</p>
       </div>
     </div>
 
-    <!-- Switcher Tampilan Layar (Responsif Test) -->
+    <!-- Switcher Layar -->
     <div class="hidden md:flex items-center bg-slate-800 p-1 rounded-xl border border-slate-700">
-      <button onclick="setDeviceView('desktop')" id="btn-desktop" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-700 flex items-center gap-2 transition">
-        <i class="fas fa-desktop"></i> Laptop/PC
+      <button onclick="setDeviceView('desktop')" id="btn-desktop" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-700 flex items-center gap-2 transition">
+        <i class="fas fa-desktop"></i> PC/Laptop
       </button>
-      <button onclick="setDeviceView('tablet')" id="btn-tablet" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-2 transition">
+      <button onclick="setDeviceView('tablet')" id="btn-tablet" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-2 transition">
         <i class="fas fa-tablet-alt"></i> Tablet
       </button>
-      <button onclick="setDeviceView('mobile')" id="btn-mobile" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-2 transition">
+      <button onclick="setDeviceView('mobile')" id="btn-mobile" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-2 transition">
         <i class="fas fa-mobile-alt"></i> Hape (375px)
       </button>
     </div>
 
-    <!-- Skor Konversi & Tombol Ekspor Kode -->
+    <!-- Action Button Export -->
     <div class="flex items-center gap-3">
-      <div class="hidden sm:flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-700 text-xs">
-        <span class="text-slate-400">Conversion Score:</span>
-        <span id="scoreBadge" class="font-extrabold text-emerald-400 font-mono">100/100</span>
-      </div>
-
       <button onclick="openExportModal()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-lg transition">
-        <i class="fas fa-code"></i> Ekspor Kode HTML
+        <i class="fas fa-code"></i> Ekspor Kode HTML Siap Pakai
       </button>
     </div>
   </header>
 
-  <!-- WORKSPACE UTAMA: SPLIT SCREEN EDITOR & LIVE CANVASES -->
+  <!-- SPLIT SCREEN WORKSPACE -->
   <div class="flex-1 flex overflow-hidden">
     
-    <!-- PANEL KIRI: FORM CONFIGURATOR -->
-    <aside class="w-full lg:w-[480px] xl:w-[520px] bg-white border-r border-slate-200 flex flex-col h-full z-20 shadow-lg">
+    <!-- LEFT PANEL: MODULAR BLOCK EDITOR -->
+    <aside class="w-full lg:w-[500px] xl:w-[540px] bg-white border-r border-slate-200 flex flex-col h-full z-20 shadow-lg">
       
-      <!-- Navigasi Tab Input -->
+      <!-- Navigasi Tab Editor -->
       <div class="flex border-b border-slate-200 bg-slate-50 text-xs font-semibold overflow-x-auto">
-        <button onclick="switchTab('tab-theme')" id="nav-tab-theme" class="tab-btn px-4 py-3 border-b-2 border-emerald-600 text-emerald-600 flex items-center gap-2 whitespace-nowrap">
-          <i class="fas fa-palette"></i> Tema & Font
+        <button onclick="switchTab('tab-branding')" id="nav-tab-branding" class="tab-btn px-4 py-3 border-b-2 border-emerald-600 text-emerald-600 flex items-center gap-2 whitespace-nowrap">
+          <i class="fas fa-id-card"></i> Logo & Identitas
         </button>
         <button onclick="switchTab('tab-hero')" id="nav-tab-hero" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
-          <i class="fas fa-flag"></i> Hero & Penawaran
+          <i class="fas fa-image"></i> Hero & Tombol
         </button>
-        <button onclick="switchTab('tab-usp')" id="nav-tab-usp" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
-          <i class="fas fa-bullseye"></i> Pain Points & USP
+        <button onclick="switchTab('tab-badges')" id="nav-tab-badges" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
+          <i class="fas fa-certificate"></i> Ribbon Badges
         </button>
-        <button onclick="switchTab('tab-act')" id="nav-tab-act" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
-          <i class="fas fa-list-check"></i> Aktivitas & Sesi
+        <button onclick="switchTab('tab-usps')" id="nav-tab-usps" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
+          <i class="fas fa-star"></i> Kartu USP
+        </button>
+        <button onclick="switchTab('tab-activities')" id="nav-tab-activities" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
+          <i class="fas fa-child"></i> Aktivitas
+        </button>
+        <button onclick="switchTab('tab-testimonials')" id="nav-tab-testimonials" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
+          <i class="fas fa-quote-left"></i> Testimoni & FAQ
         </button>
         <button onclick="switchTab('tab-integration')" id="nav-tab-integration" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
-          <i class="fas fa-plug"></i> Form & WA Admin
+          <i class="fas fa-paper-plane"></i> Form & WA
         </button>
       </div>
 
-      <!-- Isi Formulir Input (Scrollable) -->
+      <!-- Content Scroll Form Editor -->
       <div class="flex-1 overflow-y-auto p-5 space-y-5">
         
-        <!-- TAB 1: TEMA WARNA & TIPOGRAFI -->
-        <div id="tab-theme" class="tab-content space-y-4">
+        <!-- TAB 1: LOGO & IDENTITAS -->
+        <div id="tab-branding" class="tab-content space-y-4">
           <div class="border-b pb-2">
-            <h3 class="font-bold text-slate-800 text-sm">Preset Warna & Font Sekolah</h3>
-            <p class="text-xs text-slate-500">Sesuaikan skema warna dengan identitas brand sekolah Anda.</p>
+            <h3 class="font-bold text-slate-800 text-sm">Logo Sekolah & Warna Theme</h3>
+            <p class="text-xs text-slate-500">Atur logo instansi, nama sekolah, warna, dan font judul.</p>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-2">Preset Skema Warna</label>
-            <div class="grid grid-cols-2 gap-2 text-xs">
-              <button onclick="setThemeColors('#094B5C', '#135D49', '#FACC15', '#F2F9F7')" class="p-2.5 rounded-xl border border-slate-200 text-left hover:border-slate-400 flex items-center gap-2">
-                <div class="w-4 h-4 rounded-full bg-[#094B5C]"></div>
-                <div>
-                  <span class="font-bold block text-slate-800">Teal & Emerald</span>
-                  <span class="text-[10px] text-slate-400">Athalia Style</span>
-                </div>
-              </button>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Tipe Logo Header</label>
+            <select id="cfg-logoType" onchange="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300">
+              <option value="image">Gambar Logo (URL Gambar PNG/JPG)</option>
+              <option value="initial">Inisial Huruf (Icon Bulat)</option>
+            </select>
+          </div>
 
-              <button onclick="setThemeColors('#1E3A8A', '#1E40AF', '#F59E0B', '#F8FAFC')" class="p-2.5 rounded-xl border border-slate-200 text-left hover:border-slate-400 flex items-center gap-2">
-                <div class="w-4 h-4 rounded-full bg-[#1E3A8A]"></div>
-                <div>
-                  <span class="font-bold block text-slate-800">Navy & Gold</span>
-                  <span class="text-[10px] text-slate-400">Formal Premium</span>
-                </div>
-              </button>
+          <div id="logoUrlContainer">
+            <label class="block text-xs font-bold text-slate-700 mb-1">URL Gambar Logo Sekolah</label>
+            <input type="text" id="cfg-logoUrl" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" placeholder="https://domain.com/logo.png">
+          </div>
 
-              <button onclick="setThemeColors('#C2410C', '#EA580C', '#FACC15', '#FFFBEB')" class="p-2.5 rounded-xl border border-slate-200 text-left hover:border-slate-400 flex items-center gap-2">
-                <div class="w-4 h-4 rounded-full bg-[#C2410C]"></div>
-                <div>
-                  <span class="font-bold block text-slate-800">Warm Orange</span>
-                  <span class="text-[10px] text-slate-400">Ceria & Playful</span>
-                </div>
-              </button>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Nama Sekolah / Instansi</label>
+            <input type="text" id="cfg-schoolName" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Sekolah Athalia KB-TK">
+          </div>
 
-              <button onclick="setThemeColors('#065F46', '#047857', '#34D399', '#ECFDF5')" class="p-2.5 rounded-xl border border-slate-200 text-left hover:border-slate-400 flex items-center gap-2">
-                <div class="w-4 h-4 rounded-full bg-[#065F46]"></div>
-                <div>
-                  <span class="font-bold block text-slate-800">Mint Botanical</span>
-                  <span class="text-[10px] text-slate-400">Islami / Alam</span>
-                </div>
-              </button>
-            </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Tagline / Sub-Nama Header</label>
+            <input type="text" id="cfg-schoolTagline" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Sit-In Class Program">
           </div>
 
           <div class="grid grid-cols-2 gap-3 pt-2">
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Warna Utama (Header/Hero)</label>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Warna Dominan Utama</label>
               <input type="color" id="cfg-colorPrimary" onchange="updateState()" class="w-full h-9 rounded-lg border cursor-pointer" value="#094B5C">
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Warna Aksen CTA (Tombol)</label>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Warna Aksen Tombol (CTA)</label>
               <input type="color" id="cfg-colorAccent" onchange="updateState()" class="w-full h-9 rounded-lg border cursor-pointer" value="#FACC15">
             </div>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Gaya Font Judul (Headline)</label>
-            <select id="cfg-headingFont" onchange="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            <label class="block text-xs font-bold text-slate-700 mb-1">Font Judul Utama</label>
+            <select id="cfg-headingFont" onchange="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300">
               <option value="font-poetsen">Poetsen One (Playful & Bold Tebal)</option>
-              <option value="font-fredoka">Fredoka (Ramah Bulat Anak-anak)</option>
-              <option value="font-montserrat">Montserrat (Elegan Modern Bold)</option>
-              <option value="font-jakarta">Plus Jakarta Sans (Bersih & Profesional)</option>
+              <option value="font-fredoka">Fredoka (Ramah Bulat Anak)</option>
+              <option value="font-montserrat">Montserrat (Elegan Modern)</option>
+              <option value="font-jakarta">Plus Jakarta Sans (Clean)</option>
             </select>
           </div>
         </div>
 
-        <!-- TAB 2: HERO & BRANDING -->
+        <!-- TAB 2: HERO & TOMBOL -->
         <div id="tab-hero" class="tab-content hidden space-y-4">
           <div class="border-b pb-2">
-            <h3 class="font-bold text-slate-800 text-sm">Header, Hero & Urgency Ticker</h3>
-            <p class="text-xs text-slate-500">Poin penting pertama yang dilihat calon orang tua murid.</p>
+            <h3 class="font-bold text-slate-800 text-sm">Hero Section & Tombol Aksi</h3>
+            <p class="text-xs text-slate-500">Atur banner pengunggah, headline, foto hero, dan teks tombol.</p>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Nama Sekolah / Lembaga</label>
-            <input type="text" id="cfg-schoolName" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none" value="Sekolah Athalia KB-TK">
+            <label class="block text-xs font-bold text-slate-700 mb-1">Running Banner Ticker (Urgency Bar)</label>
+            <input type="text" id="cfg-urgencyText" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="🔥 SISA KUOTA TERBATAS: 7 Kursi Percobaan Gratis Bulan Ini!">
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Running Banner Ticker (Urgency/Penawaran)</label>
-            <input type="text" id="cfg-urgencyText" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none" value="🔥 SISA KUOTA TERBATAS: 7 Kursi Percobaan Gratis Bulan Ini!">
+            <label class="block text-xs font-bold text-slate-700 mb-1">Badge Tagline Atas Hero</label>
+            <input type="text" id="cfg-heroBadge" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="✨ Sesi Uji Coba Bebas Risiko">
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Judul Utama Hero (Headline Utama)</label>
-            <input type="text" id="cfg-heroTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none" value="Little Hands, Big Wonder.">
+            <label class="block text-xs font-bold text-slate-700 mb-1">Judul Utama Hero (Headline)</label>
+            <input type="text" id="cfg-heroTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Little Hands, Big Wonder.">
           </div>
 
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Sub-Judul Hero (Penjelasan Ringkas)</label>
-            <textarea id="cfg-heroSub" oninput="updateState()" rows="3" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">Satu hari bermain di kelas KB-TK. Si kecil belajar langsung bersama murid dan guru kami lewat pengalaman nyata dan suasana penuh sukacita.</textarea>
+            <textarea id="cfg-heroSub" oninput="updateState()" rows="3" class="w-full text-xs p-2.5 rounded-lg border border-slate-300">Satu hari bermain di kelas KB-TK. Si kecil belajar langsung bersama murid dan guru kami lewat pengalaman nyata dan suasana penuh sukacita.</textarea>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">URL Gambar Foto Utama (Hero Image)</label>
-            <input type="text" id="cfg-heroImg" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none" value="https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=800&q=80">
+            <label class="block text-xs font-bold text-slate-700 mb-1">URL Gambar Utama Hero</label>
+            <input type="text" id="cfg-heroImg" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=800&q=80">
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Teks Tombol CTA Utama</label>
+              <input type="text" id="cfg-btnPrimaryText" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Ikut Sit-In Class (Gratis)">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Teks Tombol WA Secondary</label>
+              <input type="text" id="cfg-btnWAText" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Tanya Admin WA">
+            </div>
           </div>
         </div>
 
-        <!-- TAB 3: PAIN POINTS & USP -->
-        <div id="tab-usp" class="tab-content hidden space-y-4">
-          <div class="border-b pb-2">
-            <h3 class="font-bold text-slate-800 text-sm">Pain Points & Unique Selling Points (USP)</h3>
-            <p class="text-xs text-slate-500">Menjawab kecemasan utama orang tua saat mencari sekolah.</p>
+        <!-- TAB 3: RIBBON BADGES (DYNAMIC LIST) -->
+        <div id="tab-badges" class="tab-content hidden space-y-4">
+          <div class="flex justify-between items-center border-b pb-2">
+            <div>
+              <h3 class="font-bold text-slate-800 text-sm">Highlight Ribbon Badges</h3>
+              <p class="text-xs text-slate-500">Poin ringkas penunjang konversi di bawah hero.</p>
+            </div>
+            <button onclick="addItem('badges')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
+              <i class="fas fa-plus"></i> Tambah Badges
+            </button>
           </div>
 
-          <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
-            <span class="text-xs font-bold text-slate-800">USP 1: Keahlian & Respons Guru (Teacher Fit)</span>
-            <input type="text" id="cfg-usp1Title" oninput="updateState()" class="w-full text-xs p-2 rounded border border-slate-300" value="Teacher Fit & Guru Tanggap">
-            <textarea id="cfg-usp1Desc" oninput="updateState()" rows="2" class="w-full text-xs p-2 rounded border border-slate-300">Guru-guru terlatih yang sigap, hangat, dan mengerti pendekatan emosi anak walau belum resmi menjadi siswa.</textarea>
+          <div id="badges-editor-list" class="space-y-3"></div>
+        </div>
+
+        <!-- TAB 4: KARTU USP (DYNAMIC LIST) -->
+        <div id="tab-usps" class="tab-content hidden space-y-4">
+          <div class="flex justify-between items-center border-b pb-2">
+            <div>
+              <h3 class="font-bold text-slate-800 text-sm">Kartu Keunggulan (USP)</h3>
+              <p class="text-xs text-slate-500">Menjawab kecemasan orang tua (Teacher Fit, dll).</p>
+            </div>
+            <button onclick="addItem('usps')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
+              <i class="fas fa-plus"></i> Tambah Kartu USP
+            </button>
           </div>
 
-          <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
-            <span class="text-xs font-bold text-slate-800">USP 2: Lingkungan Bebas Penghakiman (Judgment-Free)</span>
-            <input type="text" id="cfg-usp2Title" oninput="updateState()" class="w-full text-xs p-2 rounded border border-slate-300" value="Judgment-Free Environment">
-            <textarea id="cfg-usp2Desc" oninput="updateState()" rows="2" class="w-full text-xs p-2 rounded border border-slate-300">Orang tua dan anak merasa diterima tanpa khawatir stigma negatif saat ada kendala tumbuh kembang.</textarea>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Judul Seksi USP</label>
+            <input type="text" id="cfg-uspSectionTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Kenapa Harus Mencoba Sit-In Class?">
           </div>
 
-          <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
-            <span class="text-xs font-bold text-slate-800">USP 3: Kemitraan Orang Tua & Sekolah (Partnership)</span>
-            <input type="text" id="cfg-usp3Title" oninput="updateState()" class="w-full text-xs p-2 rounded border border-slate-300" value="Kemitraan Sejajar Orang Tua">
-            <textarea id="cfg-usp3Desc" oninput="updateState()" rows="2" class="w-full text-xs p-2 rounded border border-slate-300">Diskusi terbuka dan evaluasi berkala bersama orang tua untuk memantau perkembangan karakter si kecil.</textarea>
+          <div id="usps-editor-list" class="space-y-3"></div>
+        </div>
+
+        <!-- TAB 5: AKTIVITAS (DYNAMIC LIST) -->
+        <div id="tab-activities" class="tab-content hidden space-y-4">
+          <div class="flex justify-between items-center border-b pb-2">
+            <div>
+              <h3 class="font-bold text-slate-800 text-sm">Aktivitas Belajar</h3>
+              <p class="text-xs text-slate-500">Materi eksplorasi di dalam kelas.</p>
+            </div>
+            <button onclick="addItem('activities')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
+              <i class="fas fa-plus"></i> Tambah Aktivitas
+            </button>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Judul Seksi Aktivitas</label>
+            <input type="text" id="cfg-actSectionTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Bukan Sekadar Melihat-Lihat">
+          </div>
+
+          <div id="activities-editor-list" class="space-y-3"></div>
+        </div>
+
+        <!-- TAB 6: TESTIMONI & FAQ (DYNAMIC LIST) -->
+        <div id="tab-testimonials" class="tab-content hidden space-y-5">
+          <div class="space-y-3">
+            <div class="flex justify-between items-center border-b pb-2">
+              <h3 class="font-bold text-slate-800 text-sm">Testimoni Orang Tua</h3>
+              <button onclick="addItem('testimonials')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
+                <i class="fas fa-plus"></i> Tambah Testimoni
+              </button>
+            </div>
+            <div id="testimonials-editor-list" class="space-y-3"></div>
+          </div>
+
+          <div class="space-y-3 pt-4 border-t">
+            <div class="flex justify-between items-center border-b pb-2">
+              <h3 class="font-bold text-slate-800 text-sm">Pertanyaan Sering Muncul (FAQ)</h3>
+              <button onclick="addItem('faqs')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
+                <i class="fas fa-plus"></i> Tambah FAQ
+              </button>
+            </div>
+            <div id="faqs-editor-list" class="space-y-3"></div>
           </div>
         </div>
 
-        <!-- TAB 4: AKTIVITAS & SESI -->
-        <div id="tab-act" class="tab-content hidden space-y-4">
-          <div class="border-b pb-2">
-            <h3 class="font-bold text-slate-800 text-sm">Aktivitas Kelas & Jadwal Uji Coba</h3>
-            <p class="text-xs text-slate-500">Materi kegiatan eksplorasi anak di dalam kelas.</p>
-          </div>
-
-          <div class="space-y-2">
-            <label class="block text-xs font-bold text-slate-700">Daftar Aktivitas Utama</label>
-            <input type="text" id="cfg-act1" oninput="updateState()" class="w-full text-xs p-2 rounded border border-slate-300 mb-1" value="✋ Meraba Tekstur: Mengenal dunia lewat sentuhan lembut, kasar, basah & kering.">
-            <input type="text" id="cfg-act2" oninput="updateState()" class="w-full text-xs p-2 rounded border border-slate-300 mb-1" value="🎭 Bermain Peran: Menjadi dokter, pedagang, atau koki bersama teman baru.">
-            <input type="text" id="cfg-act3" oninput="updateState()" class="w-full text-xs p-2 rounded border border-slate-300 mb-1" value="🌱 Menanam: Menyentuh tanah dan merawat tanaman dengan tangan sendiri.">
-            <input type="text" id="cfg-act4" oninput="updateState()" class="w-full text-xs p-2 rounded border border-slate-300 mb-1" value="🍳 Memasak: Mengaduk, menuang, dan mencicipi hasil karya kecilnya.">
-          </div>
-        </div>
-
-        <!-- TAB 5: INTEGRASI FORM & WA -->
+        <!-- TAB 7: INTEGRASI FORM & WA -->
         <div id="tab-integration" class="tab-content hidden space-y-4">
           <div class="border-b pb-2">
-            <h3 class="font-bold text-slate-800 text-sm">Integrasi Database & Kontak Admin</h3>
-            <p class="text-xs text-slate-500">Pendaftaran otomatis masuk ke Google Sheets & WhatsApp Admin.</p>
+            <h3 class="font-bold text-slate-800 text-sm">Form Pendaftaran & Kontak WA</h3>
+            <p class="text-xs text-slate-500">Hubungkan pendaftaran ke Google Sheets & WhatsApp Admin.</p>
           </div>
 
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Google Apps Script Web App URL</label>
-            <input type="text" id="cfg-scriptUrl" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none" placeholder="https://script.google.com/macros/s/.../exec">
-            <p class="text-[10px] text-slate-400 mt-1">Jika dikosongkan, pendaftaran akan otomatis dialihkan langsung ke nomor WhatsApp.</p>
+            <input type="text" id="cfg-scriptUrl" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" placeholder="https://script.google.com/macros/s/.../exec">
           </div>
 
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Nomor WhatsApp Admin (Format 62...)</label>
-            <input type="text" id="cfg-whatsapp" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none" value="6287771414812">
+            <input type="text" id="cfg-whatsapp" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="6287771414812">
           </div>
 
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Pilihan Sesi Jadwal (Pisahkan Koma)</label>
-            <input type="text" id="cfg-sessions" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none" value="Sesi Sabtu Pagi (09.00 - 10.30 WIB), Sesi Sabtu Siang (11.00 - 12.30 WIB)">
+            <input type="text" id="cfg-sessions" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Sesi Sabtu Pagi (09.00 - 10.30 WIB), Sesi Sabtu Siang (11.00 - 12.30 WIB)">
           </div>
 
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Alamat Sekolah / Footer Text</label>
-            <textarea id="cfg-footerAddress" oninput="updateState()" rows="2" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">Regensi Melati Mas Blok B1, D1, B14, BSD, Serpong Utara, Tangerang Selatan</textarea>
+            <textarea id="cfg-footerAddress" oninput="updateState()" rows="2" class="w-full text-xs p-2.5 rounded-lg border border-slate-300">Regensi Melati Mas Blok B1, D1, B14, BSD, Serpong Utara, Tangerang Selatan</textarea>
           </div>
         </div>
 
       </div>
     </aside>
 
-    <!-- PANEL KANAN: LIVE CANVAS PREVIEW -->
+    <!-- RIGHT PANEL: LIVE CANVAS PREVIEW -->
     <main class="flex-1 bg-slate-200 overflow-hidden flex flex-col justify-center items-center relative">
       <div id="preview-wrapper" class="view-desktop bg-white overflow-y-auto">
         <div id="live-preview"></div>
@@ -299,7 +330,7 @@
 
   </div>
 
-  <!-- MODAL EXPORT KODE HTML -->
+  <!-- MODAL EXPORT HTML -->
   <div id="exportModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
       <div class="px-6 py-4 bg-slate-900 text-white flex justify-between items-center">
@@ -309,7 +340,7 @@
         <button onclick="closeExportModal()" class="text-slate-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
       </div>
       <div class="p-6 flex-1 overflow-y-auto space-y-3">
-        <p class="text-xs text-slate-600">Salin kode HTML di bawah ini dan simpan sebagai file <code class="bg-slate-100 px-1.5 py-0.5 rounded text-rose-600 font-mono text-xs">index.html</code> di komputer Anda. Siap langsung diupload ke Vercel atau GitHub Pages.</p>
+        <p class="text-xs text-slate-600">Salin kode HTML di bawah ini dan simpan sebagai file <code class="bg-slate-100 px-1.5 py-0.5 rounded text-rose-600 font-mono text-xs">index.html</code>. Siap diupload ke Vercel atau GitHub Pages.</p>
         <textarea id="exportCodeTextarea" readonly class="w-full h-80 p-4 font-mono text-xs bg-slate-950 text-emerald-400 rounded-xl focus:outline-none border border-slate-800"></textarea>
       </div>
       <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex justify-end gap-3">
@@ -321,27 +352,56 @@
     </div>
   </div>
 
-  <!-- JS LOGIKA EDITOR & GENERATOR -->
+  <!-- APPLICATION LOGIC JS -->
   <script>
     let state = {
+      logoType: 'initial',
+      logoUrl: '',
+      schoolName: "Sekolah Athalia KB-TK",
+      schoolTagline: "Sit-In Class Program",
       colorPrimary: '#094B5C',
       colorAccent: '#FACC15',
       headingFont: 'font-poetsen',
-      schoolName: "Sekolah Athalia KB-TK",
       urgencyText: "🔥 SISA KUOTA TERBATAS: 7 Kursi Percobaan Gratis Bulan Ini!",
+      heroBadge: "✨ Sesi Uji Coba Bebas Risiko",
       heroTitle: "Little Hands, Big Wonder.",
       heroSub: "Satu hari bermain di kelas KB-TK. Si kecil belajar langsung bersama murid dan guru kami lewat pengalaman nyata dan suasana penuh sukacita.",
       heroImg: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=800&q=80",
-      usp1Title: "Teacher Fit & Guru Tanggap",
-      usp1Desc: "Guru-guru terlatih yang sigap, hangat, dan mengerti pendekatan emosi anak walau belum resmi menjadi siswa.",
-      usp2Title: "Judgment-Free Environment",
-      usp2Desc: "Orang tua dan anak merasa diterima tanpa khawatir stigma negatif saat ada kendala tumbuh kembang.",
-      usp3Title: "Kemitraan Sejajar Orang Tua",
-      usp3Desc: "Diskusi terbuka dan evaluasi berkala bersama orang tua untuk memantau perkembangan karakter si kecil.",
-      act1: "✋ Meraba Tekstur: Mengenal dunia lewat sentuhan lembut, kasar, basah & kering.",
-      act2: "🎭 Bermain Peran: Menjadi dokter, pedagang, atau koki bersama teman baru.",
-      act3: "🌱 Menanam: Menyentuh tanah dan merawat tanaman dengan tangan sendiri.",
-      act4: "🍳 Memasak: Mengaduk, menuang, dan mencicipi hasil karya kecilnya.",
+      btnPrimaryText: "Ikut Sit-In Class (Gratis)",
+      btnWAText: "Tanya Admin WA",
+      
+      // Dynamic Lists (Add, Delete, ReorderABLE)
+      badges: [
+        { id: 1, title: "100% Gratis", sub: "Tanpa dipungut biaya" },
+        { id: 2, title: "Interaktif", sub: "60 Menit aktivitas nyata" },
+        { id: 3, title: "Pendampingan", sub: "Orang tua ikut masuk" },
+        { id: 4, title: "Kuota Terbatas", sub: "Maksimal 8 anak/sesi" }
+      ],
+
+      uspSectionTitle: "Kenapa Harus Mencoba Sit-In Class?",
+      usps: [
+        { id: 1, icon: "fa-heart", title: "Teacher Fit & Guru Tanggap", desc: "Guru-guru terlatih yang sigap, hangat, dan mengerti pendekatan emosi anak." },
+        { id: 2, icon: "fa-smile", title: "Judgment-Free Environment", desc: "Orang tua dan anak merasa aman tanpa khawatir stigma negatif." },
+        { id: 3, icon: "fa-hands-helping", title: "Kemitraan Sejajar Orang Tua", desc: "Diskusi terbuka dan evaluasi berkala bersama orang tua." }
+      ],
+
+      actSectionTitle: "Bukan Sekadar Melihat-Lihat",
+      activities: [
+        { id: 1, title: "✋ Meraba Tekstur", desc: "Mengenal dunia lewat sentuhan lembut, kasar, basah & kering." },
+        { id: 2, title: "🎭 Bermain Peran", desc: "Menjadi dokter, pedagang, atau koki bersama teman baru." },
+        { id: 3, title: "🌱 Menanam", desc: "Menyentuh tanah dan merawat tanaman dengan tangan sendiri." },
+        { id: 4, title: "🍳 Memasak", desc: "Mengaduk, menuang, dan mencicipi hasil karya kecilnya." }
+      ],
+
+      testimonials: [
+        { id: 1, name: "Ibu Maria", role: "Mama Kenzo (Usia 3 Thn)", photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80", quote: "Awalnya khawatir Kenzo pemalu, tapi gurunya sangat gercep merangkul. Kenzo langsung betah!" }
+      ],
+
+      faqs: [
+        { id: 1, q: "Apakah orang tua boleh menemani di kelas?", a: "Ya! Pada program Sit-In Class, orang tua dapat mendampingi si kecil secara penuh." },
+        { id: 2, q: "Berapa lama durasi setiap sesi?", a: "Setiap sesi berlangsung selama 60 hingga 90 menit penuh aktivitas interaktif." }
+      ],
+
       scriptUrl: "",
       whatsapp: "6287771414812",
       sessions: "Sesi Sabtu Pagi (09.00 - 10.30 WIB), Sesi Sabtu Siang (11.00 - 12.30 WIB)",
@@ -361,80 +421,196 @@
       activeNav.classList.add('border-emerald-600', 'text-emerald-600');
     }
 
-    function setThemeColors(primary, secondary, accent, bg) {
-      document.getElementById('cfg-colorPrimary').value = primary;
-      document.getElementById('cfg-colorAccent').value = accent;
-      updateState();
-    }
-
     function setDeviceView(type) {
       const wrapper = document.getElementById('preview-wrapper');
       const btnD = document.getElementById('btn-desktop');
       const btnT = document.getElementById('btn-tablet');
       const btnM = document.getElementById('btn-mobile');
 
-      btnD.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-2 transition";
-      btnT.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-2 transition";
-      btnM.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-2 transition";
+      btnD.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-2 transition";
+      btnT.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-2 transition";
+      btnM.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-2 transition";
 
       wrapper.className = "bg-white overflow-y-auto ";
       if(type === 'desktop') {
         wrapper.classList.add('view-desktop');
-        btnD.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-700 flex items-center gap-2 transition";
+        btnD.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-700 flex items-center gap-2 transition";
       } else if(type === 'tablet') {
         wrapper.classList.add('view-tablet');
-        btnT.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-700 flex items-center gap-2 transition";
+        btnT.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-700 flex items-center gap-2 transition";
       } else if(type === 'mobile') {
         wrapper.classList.add('view-mobile');
-        btnM.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-700 flex items-center gap-2 transition";
+        btnM.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-700 flex items-center gap-2 transition";
       }
     }
 
+    // LIST MANIPULATION FUNCTIONS: ADD, DELETE, MOVE UP, MOVE DOWN
+    function addItem(listName) {
+      const id = Date.now();
+      if(listName === 'badges') {
+        state.badges.push({ id, title: "Badge Baru", sub: "Keterangan ringkas" });
+      } else if(listName === 'usps') {
+        state.usps.push({ id, icon: "fa-star", title: "Keunggulan Baru", desc: "Penjelasan keunggulan sekolah..." });
+      } else if(listName === 'activities') {
+        state.activities.push({ id, title: "✨ Aktivitas Baru", desc: "Deskripsi singkat aktivitas belajar..." });
+      } else if(listName === 'testimonials') {
+        state.testimonials.push({ id, name: "Nama Ortu", role: "Orang Tua Siswa", photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80", quote: "Ulasan positif mengenai sekolah..." });
+      } else if(listName === 'faqs') {
+        state.faqs.push({ id, q: "Pertanyaan Baru?", a: "Jawaban pertanyaan..." });
+      }
+      renderEditorLists();
+      updateState();
+    }
+
+    function deleteItem(listName, index) {
+      state[listName].splice(index, 1);
+      renderEditorLists();
+      updateState();
+    }
+
+    function moveItem(listName, index, direction) {
+      const targetIndex = index + direction;
+      if (targetIndex < 0 || targetIndex >= state[listName].length) return;
+      const temp = state[listName][index];
+      state[listName][index] = state[listName][targetIndex];
+      state[listName][targetIndex] = temp;
+      renderEditorLists();
+      updateState();
+    }
+
+    function updateItemField(listName, index, field, value) {
+      state[listName][index][field] = value;
+      renderPreview();
+    }
+
+    // RENDER EDITOR LIST CONTROLS IN SIDEBAR
+    function renderEditorLists() {
+      // Badges Editor
+      const badgesContainer = document.getElementById('badges-editor-list');
+      badgesContainer.innerHTML = state.badges.map((item, idx) => `
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-slate-700">Badge #${idx+1}</span>
+            <div class="flex items-center gap-1">
+              <button onclick="moveItem('badges', ${idx}, -1)" class="p-1 text-slate-500 hover:text-slate-800 text-xs"><i class="fas fa-arrow-up"></i></button>
+              <button onclick="moveItem('badges', ${idx}, 1)" class="p-1 text-slate-500 hover:text-slate-800 text-xs"><i class="fas fa-arrow-down"></i></button>
+              <button onclick="deleteItem('badges', ${idx})" class="p-1 text-rose-500 hover:text-rose-700 text-xs"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+          <input type="text" value="${item.title}" oninput="updateItemField('badges', ${idx}, 'title', this.value)" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Judul Badge">
+          <input type="text" value="${item.sub}" oninput="updateItemField('badges', ${idx}, 'sub', this.value)" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Sub Badge">
+        </div>
+      `).join('');
+
+      // USPs Editor
+      const uspsContainer = document.getElementById('usps-editor-list');
+      uspsContainer.innerHTML = state.usps.map((item, idx) => `
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-slate-700">USP #${idx+1}</span>
+            <div class="flex items-center gap-1">
+              <button onclick="moveItem('usps', ${idx}, -1)" class="p-1 text-slate-500 hover:text-slate-800 text-xs"><i class="fas fa-arrow-up"></i></button>
+              <button onclick="moveItem('usps', ${idx}, 1)" class="p-1 text-slate-500 hover:text-slate-800 text-xs"><i class="fas fa-arrow-down"></i></button>
+              <button onclick="deleteItem('usps', ${idx})" class="p-1 text-rose-500 hover:text-rose-700 text-xs"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <input type="text" value="${item.icon}" oninput="updateItemField('usps', ${idx}, 'icon', this.value)" class="w-1/3 text-xs p-2 rounded border border-slate-300" placeholder="Icon Class (fa-heart)">
+            <input type="text" value="${item.title}" oninput="updateItemField('usps', ${idx}, 'title', this.value)" class="w-2/3 text-xs p-2 rounded border border-slate-300" placeholder="Judul Keunggulan">
+          </div>
+          <textarea oninput="updateItemField('usps', ${idx}, 'desc', this.value)" rows="2" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Deskripsi USP">${item.desc}</textarea>
+        </div>
+      `).join('');
+
+      // Activities Editor
+      const actContainer = document.getElementById('activities-editor-list');
+      actContainer.innerHTML = state.activities.map((item, idx) => `
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-slate-700">Aktivitas #${idx+1}</span>
+            <div class="flex items-center gap-1">
+              <button onclick="moveItem('activities', ${idx}, -1)" class="p-1 text-slate-500 hover:text-slate-800 text-xs"><i class="fas fa-arrow-up"></i></button>
+              <button onclick="moveItem('activities', ${idx}, 1)" class="p-1 text-slate-500 hover:text-slate-800 text-xs"><i class="fas fa-arrow-down"></i></button>
+              <button onclick="deleteItem('activities', ${idx})" class="p-1 text-rose-500 hover:text-rose-700 text-xs"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+          <input type="text" value="${item.title}" oninput="updateItemField('activities', ${idx}, 'title', this.value)" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Judul Aktivitas">
+          <textarea oninput="updateItemField('activities', ${idx}, 'desc', this.value)" rows="2" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Deskripsi Aktivitas">${item.desc}</textarea>
+        </div>
+      `).join('');
+
+      // Testimonials Editor
+      const testContainer = document.getElementById('testimonials-editor-list');
+      testContainer.innerHTML = state.testimonials.map((item, idx) => `
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-slate-700">Testimoni #${idx+1}</span>
+            <div class="flex items-center gap-1">
+              <button onclick="moveItem('testimonials', ${idx}, -1)" class="p-1 text-slate-500 text-xs"><i class="fas fa-arrow-up"></i></button>
+              <button onclick="moveItem('testimonials', ${idx}, 1)" class="p-1 text-slate-500 text-xs"><i class="fas fa-arrow-down"></i></button>
+              <button onclick="deleteItem('testimonials', ${idx})" class="p-1 text-rose-500 text-xs"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <input type="text" value="${item.name}" oninput="updateItemField('testimonials', ${idx}, 'name', this.value)" class="text-xs p-2 rounded border border-slate-300" placeholder="Nama Ortu">
+            <input type="text" value="${item.role}" oninput="updateItemField('testimonials', ${idx}, 'role', this.value)" class="text-xs p-2 rounded border border-slate-300" placeholder="Keterangan">
+          </div>
+          <textarea oninput="updateItemField('testimonials', ${idx}, 'quote', this.value)" rows="2" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Kutipan Ulasan">${item.quote}</textarea>
+        </div>
+      `).join('');
+
+      // FAQs Editor
+      const faqsContainer = document.getElementById('faqs-editor-list');
+      faqsContainer.innerHTML = state.faqs.map((item, idx) => `
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-slate-700">FAQ #${idx+1}</span>
+            <div class="flex items-center gap-1">
+              <button onclick="moveItem('faqs', ${idx}, -1)" class="p-1 text-slate-500 text-xs"><i class="fas fa-arrow-up"></i></button>
+              <button onclick="moveItem('faqs', ${idx}, 1)" class="p-1 text-slate-500 text-xs"><i class="fas fa-arrow-down"></i></button>
+              <button onclick="deleteItem('faqs', ${idx})" class="p-1 text-rose-500 text-xs"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+          <input type="text" value="${item.q}" oninput="updateItemField('faqs', ${idx}, 'q', this.value)" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Pertanyaan">
+          <textarea oninput="updateItemField('faqs', ${idx}, 'a', this.value)" rows="2" class="w-full text-xs p-2 rounded border border-slate-300" placeholder="Jawaban">${item.a}</textarea>
+        </div>
+      `).join('');
+    }
+
     function updateState() {
+      state.logoType = document.getElementById('cfg-logoType').value;
+      state.logoUrl = document.getElementById('cfg-logoUrl').value;
+      state.schoolName = document.getElementById('cfg-schoolName').value;
+      state.schoolTagline = document.getElementById('cfg-schoolTagline').value;
       state.colorPrimary = document.getElementById('cfg-colorPrimary').value;
       state.colorAccent = document.getElementById('cfg-colorAccent').value;
       state.headingFont = document.getElementById('cfg-headingFont').value;
-      state.schoolName = document.getElementById('cfg-schoolName').value;
       state.urgencyText = document.getElementById('cfg-urgencyText').value;
+      state.heroBadge = document.getElementById('cfg-heroBadge').value;
       state.heroTitle = document.getElementById('cfg-heroTitle').value;
       state.heroSub = document.getElementById('cfg-heroSub').value;
       state.heroImg = document.getElementById('cfg-heroImg').value;
-      state.usp1Title = document.getElementById('cfg-usp1Title').value;
-      state.usp1Desc = document.getElementById('cfg-usp1Desc').value;
-      state.usp2Title = document.getElementById('cfg-usp2Title').value;
-      state.usp2Desc = document.getElementById('cfg-usp2Desc').value;
-      state.usp3Title = document.getElementById('cfg-usp3Title').value;
-      state.usp3Desc = document.getElementById('cfg-usp3Desc').value;
-      state.act1 = document.getElementById('cfg-act1').value;
-      state.act2 = document.getElementById('cfg-act2').value;
-      state.act3 = document.getElementById('cfg-act3').value;
-      state.act4 = document.getElementById('cfg-act4').value;
+      state.btnPrimaryText = document.getElementById('cfg-btnPrimaryText').value;
+      state.btnWAText = document.getElementById('cfg-btnWAText').value;
+      state.uspSectionTitle = document.getElementById('cfg-uspSectionTitle').value;
+      state.actSectionTitle = document.getElementById('cfg-actSectionTitle').value;
       state.scriptUrl = document.getElementById('cfg-scriptUrl').value;
       state.whatsapp = document.getElementById('cfg-whatsapp').value;
       state.sessions = document.getElementById('cfg-sessions').value;
       state.footerAddress = document.getElementById('cfg-footerAddress').value;
 
-      calculateScore();
       renderPreview();
-    }
-
-    function calculateScore() {
-      let score = 50;
-      if(state.urgencyText.length > 5) score += 10;
-      if(state.heroTitle.length > 5) score += 10;
-      if(state.whatsapp.length > 8) score += 10;
-      if(state.scriptUrl.length > 10) score += 10;
-      if(state.sessions.length > 5) score += 10;
-      
-      const badge = document.getElementById('scoreBadge');
-      if(badge) {
-        badge.innerText = score + "/100";
-      }
     }
 
     function renderPreview() {
       const container = document.getElementById('live-preview');
       const sessionOptions = state.sessions.split(',').map(s => `<option value="${s.trim()}">${s.trim()}</option>`).join('');
+
+      // Header Logo Render
+      let logoHtml = `<div style="background-color: ${state.colorAccent}" class="w-9 h-9 rounded-full text-slate-950 flex items-center justify-center font-bold text-lg ${state.headingFont}">${state.schoolName.charAt(0)}</div>`;
+      if(state.logoType === 'image' && state.logoUrl) {
+        logoHtml = `<img src="${state.logoUrl}" alt="Logo" class="h-9 w-auto object-contain">`;
+      }
 
       container.innerHTML = `
         <div class="bg-slate-50 text-slate-800 min-h-full font-jakarta">
@@ -446,13 +622,13 @@
           <header style="background-color: ${state.colorPrimary}" class="text-white sticky top-0 z-30 shadow-md">
             <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
               <div class="flex items-center gap-3">
-                <div style="background-color: ${state.colorAccent}" class="w-9 h-9 rounded-full text-slate-950 flex items-center justify-center font-bold text-lg ${state.headingFont}">A</div>
+                ${logoHtml}
                 <div>
                   <div class="${state.headingFont} font-normal text-base leading-tight">${state.schoolName}</div>
-                  <div class="text-[10px] text-teal-200 uppercase tracking-widest font-semibold">Sit-In Class Program</div>
+                  <div class="text-[10px] text-teal-200 uppercase tracking-widest font-semibold">${state.schoolTagline}</div>
                 </div>
               </div>
-              <a href="#daftar-form" style="background-color: ${state.colorAccent}" class="text-slate-950 font-extrabold text-xs px-4 py-2 rounded-full shadow transition">Daftar Sesi</a>
+              <a href="#daftar-form" style="background-color: ${state.colorAccent}" class="text-slate-950 font-extrabold text-xs px-4 py-2 rounded-full shadow transition">${state.btnPrimaryText}</a>
             </div>
           </header>
 
@@ -460,7 +636,7 @@
             <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center relative z-10">
               <div>
                 <span class="inline-block bg-white/10 text-white border border-white/20 text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider mb-4">
-                  ✨ Sesi Uji Coba Bebas Risiko
+                  ${state.heroBadge}
                 </span>
                 <h1 class="${state.headingFont} text-3xl sm:text-4xl lg:text-5xl leading-tight text-white">
                   ${state.heroTitle}
@@ -471,10 +647,10 @@
                 
                 <div class="mt-6 flex flex-col sm:flex-row gap-3">
                   <a href="#daftar-form" style="background-color: ${state.colorAccent}" class="text-slate-950 font-extrabold px-6 py-3.5 rounded-2xl text-center shadow-lg transition text-sm">
-                    Ikut Sit-In Class (Gratis)
+                    ${state.btnPrimaryText}
                   </a>
-                  <a href="https://wa.me/${state.whatsapp}?text=Halo%20Admin,%20saya%20tanya%20Sit-In%20Class" target="_blank" class="border border-white/30 hover:bg-white/10 text-white font-semibold px-5 py-3.5 rounded-2xl text-center flex items-center justify-center gap-2 text-sm">
-                    <i class="fab fa-whatsapp text-emerald-400 text-lg"></i> Tanya Admin WA
+                  <a href="https://wa.me/${state.whatsapp}?text=Halo%20Admin,%20saya%20tanya%20informasi" target="_blank" class="border border-white/30 hover:bg-white/10 text-white font-semibold px-5 py-3.5 rounded-2xl text-center flex items-center justify-center gap-2 text-sm">
+                    <i class="fab fa-whatsapp text-emerald-400 text-lg"></i> ${state.btnWAText}
                   </a>
                 </div>
               </div>
@@ -487,113 +663,98 @@
             </div>
           </section>
 
+          <!-- DYNAMIC RIBBON BADGES -->
           <section class="max-w-5xl mx-auto px-4 -mt-6 relative z-20">
-            <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              <div class="p-2">
-                <span style="color: ${state.colorPrimary}" class="block ${state.headingFont} text-base sm:text-lg">100% Gratis</span>
-                <span class="text-[11px] text-slate-500">Tanpa dipungut biaya</span>
-              </div>
-              <div class="p-2 border-l border-slate-100">
-                <span style="color: ${state.colorPrimary}" class="block ${state.headingFont} text-base sm:text-lg">Interaktif</span>
-                <span class="text-[11px] text-slate-500">60 Menit aktivitas nyata</span>
-              </div>
-              <div class="p-2 border-l border-slate-100">
-                <span style="color: ${state.colorPrimary}" class="block ${state.headingFont} text-base sm:text-lg">Pendampingan</span>
-                <span class="text-[11px] text-slate-500">Orang tua ikut masuk</span>
-              </div>
-              <div class="p-2 border-l border-slate-100">
-                <span style="color: ${state.colorPrimary}" class="block ${state.headingFont} text-base sm:text-lg">Kuota Terbatas</span>
-                <span class="text-[11px] text-slate-500">Maksimal 8 anak/sesi</span>
-              </div>
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-4 grid grid-cols-2 md:grid-cols-${Math.min(state.badges.length, 4)} gap-4 text-center">
+              ${state.badges.map((b, idx) => `
+                <div class="p-2 ${idx > 0 ? 'border-l border-slate-100' : ''}">
+                  <span style="color: ${state.colorPrimary}" class="block ${state.headingFont} text-base sm:text-lg">${b.title}</span>
+                  <span class="text-[11px] text-slate-500">${b.sub}</span>
+                </div>
+              `).join('')}
             </div>
           </section>
 
+          <!-- DYNAMIC USPS -->
           <section class="max-w-5xl mx-auto px-4 py-14">
             <div class="text-center mb-10">
-              <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl sm:text-3xl">Kenapa Harus Mencoba Sit-In Class?</h2>
-              <p class="text-xs sm:text-sm text-slate-600 mt-2">Menjawab kekhawatiran orang tua dalam memilih sekolah pertama bagi anak.</p>
+              <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl sm:text-3xl">${state.uspSectionTitle}</h2>
             </div>
-
             <div class="grid md:grid-cols-3 gap-6">
-              <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-heart"></i></div>
-                <h3 class="${state.headingFont} text-lg text-slate-800 mb-2">${state.usp1Title}</h3>
-                <p class="text-xs text-slate-600 leading-relaxed">${state.usp1Desc}</p>
-              </div>
-
-              <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-smile"></i></div>
-                <h3 class="${state.headingFont} text-lg text-slate-800 mb-2">${state.usp2Title}</h3>
-                <p class="text-xs text-slate-600 leading-relaxed">${state.usp2Desc}</p>
-              </div>
-
-              <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-hands-helping"></i></div>
-                <h3 class="${state.headingFont} text-lg text-slate-800 mb-2">${state.usp3Title}</h3>
-                <p class="text-xs text-slate-600 leading-relaxed">${state.usp3Desc}</p>
-              </div>
+              ${state.usps.map(u => `
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                  <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas ${u.icon}"></i></div>
+                  <h3 class="${state.headingFont} text-lg text-slate-800 mb-2">${u.title}</h3>
+                  <p class="text-xs text-slate-600 leading-relaxed">${u.desc}</p>
+                </div>
+              `).join('')}
             </div>
           </section>
 
+          <!-- DYNAMIC ACTIVITIES -->
           <section class="bg-white py-14 border-y border-slate-100">
             <div class="max-w-5xl mx-auto px-4">
-              <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl sm:text-3xl text-center mb-8">Bukan Sekadar Melihat-Lihat</h2>
+              <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl sm:text-3xl text-center mb-8">${state.actSectionTitle}</h2>
               <div class="grid sm:grid-cols-2 gap-4">
-                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex items-start gap-3">
-                  <div class="text-sm text-slate-700 leading-relaxed">${state.act1}</div>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex items-start gap-3">
-                  <div class="text-sm text-slate-700 leading-relaxed">${state.act2}</div>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex items-start gap-3">
-                  <div class="text-sm text-slate-700 leading-relaxed">${state.act3}</div>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex items-start gap-3">
-                  <div class="text-sm text-slate-700 leading-relaxed">${state.act4}</div>
-                </div>
+                ${state.activities.map(a => `
+                  <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex items-start gap-3">
+                    <div class="text-sm text-slate-700 leading-relaxed font-semibold">${a.title}: <span class="font-normal text-slate-600">${a.desc}</span></div>
+                  </div>
+                `).join('')}
               </div>
             </div>
           </section>
 
+          <!-- TESTIMONIALS & FAQ -->
+          ${state.testimonials.length > 0 ? `
+          <section class="max-w-4xl mx-auto px-4 py-12">
+            <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl text-center mb-6">Kata Orang Tua Murid</h2>
+            <div class="grid gap-4">
+              ${state.testimonials.map(t => `
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-start gap-4">
+                  <img src="${t.photo}" class="w-12 h-12 rounded-full object-cover">
+                  <div>
+                    <p class="text-xs text-slate-600 italic">"${t.quote}"</p>
+                    <span class="block text-xs font-bold text-slate-800 mt-2">${t.name} <span class="font-normal text-slate-400">(${t.role})</span></span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </section>` : ''}
+
+          <!-- FORM CONVERSION -->
           <section id="daftar-form" class="max-w-xl mx-auto px-4 py-16">
             <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-slate-100">
               <div class="text-center mb-6">
-                <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl">Formulir Reservasi Tempat</h2>
-                <p class="text-xs text-slate-500 mt-1">Satu langkah kecil menuju perkembangan emas si kecil.</p>
+                <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl">Formulir Pendaftaran</h2>
               </div>
-
-              <form onsubmit="event.preventDefault(); alert('Ini tampilan live preview. Di file export HTML, form langsung terhubung ke Google Sheets & WA!');" class="space-y-4">
+              <form onsubmit="event.preventDefault(); alert('Ini tampilan live preview.');" class="space-y-4">
                 <div>
                   <label class="block text-xs font-bold text-slate-700 mb-1">Nama Orang Tua</label>
-                  <input type="text" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:outline-none" placeholder="Contoh: Ibu Maria">
+                  <input type="text" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs" placeholder="Contoh: Ibu Maria">
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                   <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">Nama Anak</label>
-                    <input type="text" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:outline-none" placeholder="Contoh: Kenzo">
+                    <input type="text" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs" placeholder="Contoh: Kenzo">
                   </div>
                   <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">Usia Anak</label>
-                    <select required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:outline-none bg-white">
-                      <option value="Batita (1-2 thn)">Batita (1-2 Thn)</option>
-                      <option value="Pra-TK (3 thn)">Pra-TK (3 Thn)</option>
-                      <option value="TK A (4 thn)">TK A (4 Thn)</option>
-                    </select>
+                    <input type="text" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs" placeholder="Contoh: 3 Tahun">
                   </div>
                 </div>
                 <div>
                   <label class="block text-xs font-bold text-slate-700 mb-1">Nomor WhatsApp Active</label>
-                  <input type="tel" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:outline-none" placeholder="08123456789">
+                  <input type="tel" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs" placeholder="08123456789">
                 </div>
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Sesi Uji Coba</label>
-                  <select required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:outline-none bg-white">
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Sesi</label>
+                  <select required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white">
                     ${sessionOptions}
                   </select>
                 </div>
-
-                <button type="submit" style="background-color: ${state.colorAccent}" class="w-full text-slate-950 font-extrabold py-3.5 rounded-xl shadow-lg transition text-xs sm:text-sm mt-2">
-                  Kirim & Reservasi Kursi Sekarang
+                <button type="submit" style="background-color: ${state.colorAccent}" class="w-full text-slate-950 font-extrabold py-3.5 rounded-xl shadow-lg transition text-xs sm:text-sm">
+                  ${state.btnPrimaryText}
                 </button>
               </form>
             </div>
@@ -605,7 +766,7 @@
             <p>© 2026 ${state.schoolName}. All rights reserved.</p>
           </footer>
 
-          <a href="https://wa.me/${state.whatsapp}?text=Halo%20Admin,%20saya%20tanya%20Sit-In%20Class" target="_blank" class="fixed bottom-5 right-5 bg-emerald-500 hover:bg-emerald-600 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center text-2xl z-40 transition hover:scale-105">
+          <a href="https://wa.me/${state.whatsapp}?text=Halo%20Admin" target="_blank" class="fixed bottom-5 right-5 bg-emerald-500 hover:bg-emerald-600 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center text-2xl z-40">
             <i class="fab fa-whatsapp"></i>
           </a>
         </div>
@@ -613,14 +774,12 @@
     }
 
     function generateStandaloneHTML() {
-      const sessionOptions = state.sessions.split(',').map(s => `<option value="${s.trim()}">${s.trim()}</option>`).join('\n              ');
-      
       return `<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sit-In Class - ${state.schoolName}</title>
+  <title>${state.schoolName} - ${state.schoolTagline}</title>
   <script src="https://cdn.tailwindcss.com"><\/script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Montserrat:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poetsen+One&display=swap" rel="stylesheet">
@@ -632,185 +791,8 @@
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-jakarta antialiased">
-
-  <div style="background-color: ${state.colorAccent}" class="text-slate-950 text-xs font-bold py-2 px-4 text-center">
-    ${state.urgencyText}
-  </div>
-
-  <header style="background-color: ${state.colorPrimary}" class="text-white sticky top-0 z-30 shadow-md">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <div style="background-color: ${state.colorAccent}" class="w-9 h-9 rounded-full text-slate-950 flex items-center justify-center font-bold text-lg ${state.headingFont}">A</div>
-        <div>
-          <div class="${state.headingFont} font-normal text-base leading-tight">${state.schoolName}</div>
-          <div class="text-[10px] text-teal-200 uppercase tracking-widest font-semibold">Sit-In Class Program</div>
-        </div>
-      </div>
-      <a href="#daftar-form" style="background-color: ${state.colorAccent}" class="text-slate-950 font-extrabold text-xs px-4 py-2 rounded-full shadow transition">Daftar Sesi</a>
-    </div>
-  </header>
-
-  <section style="background-color: ${state.colorPrimary}" class="text-white py-12 px-4">
-    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
-      <div>
-        <span class="inline-block bg-white/10 text-white border border-white/20 text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider mb-4">
-          ✨ Sesi Uji Coba Bebas Risiko
-        </span>
-        <h1 class="${state.headingFont} text-3xl sm:text-4xl lg:text-5xl leading-tight text-white">
-          ${state.heroTitle}
-        </h1>
-        <p class="mt-4 text-slate-100 text-sm sm:text-base leading-relaxed">
-          ${state.heroSub}
-        </p>
-        <div class="mt-6 flex flex-col sm:flex-row gap-3">
-          <a href="#daftar-form" style="background-color: ${state.colorAccent}" class="text-slate-950 font-extrabold px-6 py-3.5 rounded-2xl text-center shadow-lg transition text-sm">
-            Ikut Sit-In Class (Gratis)
-          </a>
-          <a href="https://wa.me/${state.whatsapp}?text=Halo%20Admin,%20saya%20tanya%20Sit-In%20Class" target="_blank" class="border border-white/30 hover:bg-white/10 text-white font-semibold px-5 py-3.5 rounded-2xl text-center flex items-center justify-center gap-2 text-sm">
-            <i class="fab fa-whatsapp text-emerald-400 text-lg"></i> Tanya Admin WA
-          </a>
-        </div>
-      </div>
-      <div>
-        <img src="${state.heroImg}" alt="Hero" class="w-full h-72 sm:h-80 object-cover rounded-3xl shadow-2xl border-4 border-white/10">
-      </div>
-    </div>
-  </section>
-
-  <section class="max-w-5xl mx-auto px-4 -mt-6 relative z-20">
-    <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-      <div class="p-2"><span style="color: ${state.colorPrimary}" class="block ${state.headingFont} text-base sm:text-lg">100% Gratis</span><span class="text-[11px] text-slate-500">Tanpa dipungut biaya</span></div>
-      <div class="p-2 border-l border-slate-100"><span style="color: ${state.colorPrimary}" class="block ${state.headingFont} text-base sm:text-lg">Interaktif</span><span class="text-[11px] text-slate-500">60 Menit aktivitas nyata</span></div>
-      <div class="p-2 border-l border-slate-100"><span style="color: ${state.colorPrimary}" class="block ${state.headingFont} text-base sm:text-lg">Pendampingan</span><span class="text-[11px] text-slate-500">Orang tua ikut masuk</span></div>
-      <div class="p-2 border-l border-slate-100"><span style="color: ${state.colorPrimary}" class="block ${state.headingFont} text-base sm:text-lg">Kuota Terbatas</span><span class="text-[11px] text-slate-500">Maksimal 8 anak/sesi</span></div>
-    </div>
-  </section>
-
-  <section class="max-w-5xl mx-auto px-4 py-14">
-    <div class="text-center mb-10">
-      <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl sm:text-3xl">Kenapa Harus Mencoba Sit-In Class?</h2>
-    </div>
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-        <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-heart"></i></div>
-        <h3 class="${state.headingFont} text-lg text-slate-800 mb-2">${state.usp1Title}</h3>
-        <p class="text-xs text-slate-600 leading-relaxed">${state.usp1Desc}</p>
-      </div>
-      <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-        <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-smile"></i></div>
-        <h3 class="${state.headingFont} text-lg text-slate-800 mb-2">${state.usp2Title}</h3>
-        <p class="text-xs text-slate-600 leading-relaxed">${state.usp2Desc}</p>
-      </div>
-      <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-        <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-hands-helping"></i></div>
-        <h3 class="${state.headingFont} text-lg text-slate-800 mb-2">${state.usp3Title}</h3>
-        <p class="text-xs text-slate-600 leading-relaxed">${state.usp3Desc}</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="daftar-form" class="max-w-xl mx-auto px-4 py-16">
-    <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-slate-100">
-      <div class="text-center mb-6">
-        <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl">Formulir Reservasi Tempat</h2>
-        <p class="text-xs text-slate-500 mt-1">Satu langkah kecil menuju perkembangan emas si kecil.</p>
-      </div>
-
-      <form id="leadForm" class="space-y-4">
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Nama Orang Tua</label>
-          <input type="text" id="parentName" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none" placeholder="Contoh: Ibu Maria">
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Nama Anak</label>
-            <input type="text" id="childName" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none" placeholder="Contoh: Kenzo">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Usia Anak</label>
-            <select id="childAge" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none bg-white">
-              <option value="Batita (1-2 thn)">Batita (1-2 Thn)</option>
-              <option value="Pra-TK (3 thn)">Pra-TK (3 Thn)</option>
-              <option value="TK A (4 thn)">TK A (4 Thn)</option>
-            </select>
-          </div>
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Nomor WhatsApp Active</label>
-          <input type="tel" id="whatsapp" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none" placeholder="08123456789">
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Sesi Uji Coba</label>
-          <select id="selectedSession" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none bg-white">
-            ${sessionOptions}
-          </select>
-        </div>
-
-        <button type="submit" id="btnSubmit" style="background-color: ${state.colorAccent}" class="w-full text-slate-950 font-extrabold py-3.5 rounded-xl shadow-lg transition text-xs sm:text-sm mt-2">
-          Kirim & Reservasi Kursi Sekarang
-        </button>
-      </form>
-      <div id="statusMsg" class="hidden mt-3 p-3 rounded-xl text-center text-xs font-semibold"></div>
-    </div>
-  </section>
-
-  <footer class="bg-slate-900 text-white py-8 px-4 text-center text-xs text-slate-400">
-    <p class="${state.headingFont} text-white text-sm mb-1">${state.schoolName}</p>
-    <p class="max-w-md mx-auto mb-4">${state.footerAddress}</p>
-    <p>© 2026 ${state.schoolName}. All rights reserved.</p>
-  </footer>
-
-  <a href="https://wa.me/${state.whatsapp}?text=Halo%20Admin,%20saya%20tanya%20Sit-In%20Class" target="_blank" class="fixed bottom-5 right-5 bg-emerald-500 hover:bg-emerald-600 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center text-2xl z-40 transition hover:scale-105">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-
-  <script>
-    const scriptURL = '${state.scriptUrl}';
-    const form = document.getElementById('leadForm');
-    const btnSubmit = document.getElementById('btnSubmit');
-    const statusMsg = document.getElementById('statusMsg');
-
-    if(form) {
-      form.addEventListener('submit', e => {
-        e.preventDefault();
-        btnSubmit.disabled = true;
-        btnSubmit.innerText = 'Mengirim Data...';
-
-        const payload = {
-          parentName: document.getElementById('parentName').value,
-          childName: document.getElementById('childName').value,
-          childAge: document.getElementById('childAge').value,
-          whatsapp: document.getElementById('whatsapp').value,
-          selectedSession: document.getElementById('selectedSession').value
-        };
-
-        if(!scriptURL) {
-          const waText = \`Halo Admin, saya mendaftar Sit-In Class:\\n- Nama Ortu: \${payload.parentName}\\n- Nama Anak: \${payload.childName} (\${payload.childAge})\\n- Sesi: \${payload.selectedSession}\`;
-          window.open(\`https://wa.me/${state.whatsapp}?text=\${encodeURIComponent(waText)}\`, '_blank');
-          btnSubmit.disabled = false;
-          btnSubmit.innerText = 'Kirim & Reservasi Kursi Sekarang';
-          return;
-        }
-
-        fetch(scriptURL, { method: 'POST', body: JSON.stringify(payload) })
-        .then(res => {
-          btnSubmit.disabled = false;
-          btnSubmit.innerText = 'Kirim & Reservasi Kursi Sekarang';
-          statusMsg.className = "mt-3 p-3 rounded-xl text-center text-xs font-semibold bg-emerald-100 text-emerald-800";
-          statusMsg.innerText = "Pendaftaran Berhasil! Tim Admin akan segera menghubungi Anda.";
-          form.reset();
-        })
-        .catch(err => {
-          btnSubmit.disabled = false;
-          btnSubmit.innerText = 'Kirim & Reservasi Kursi Sekarang';
-          statusMsg.className = "mt-3 p-3 rounded-xl text-center text-xs font-semibold bg-rose-100 text-rose-800";
-          statusMsg.innerText = "Terjadi kesalahan. Data dialihkan langsung ke WhatsApp Admin.";
-          const waText = \`Halo Admin, saya mendaftar Sit-In Class:\\n- Nama Ortu: \${payload.parentName}\\n- Nama Anak: \${payload.childName} (\${payload.childAge})\\n- Sesi: \${payload.selectedSession}\`;
-          window.open(\`https://wa.me/${state.whatsapp}?text=\${encodeURIComponent(waText)}\`, '_blank');
-        });
-      });
-    }
-  <\/script>
+  <!-- Dynamic Generated Page Content -->
+  ${document.getElementById('live-preview').innerHTML}
 </body>
 </html>`;
     }
@@ -834,6 +816,7 @@
     }
 
     window.onload = function() {
+      renderEditorLists();
       updateState();
     };
   </script>
