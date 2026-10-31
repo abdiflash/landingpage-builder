@@ -55,9 +55,9 @@
       <div>
         <h1 class="font-bold text-base sm:text-lg leading-tight flex items-center gap-2">
           Modular School Funnel Builder
-          <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-mono uppercase">Full Dynamic Block</span>
+          <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-mono uppercase">v3.0 RSVP & FAQ Fixed</span>
         </h1>
-        <p class="text-xs text-slate-400">Atur Logo, Teks, Icon, Tombol, Tambah/Hapus/Geser Elemen</p>
+        <p class="text-xs text-slate-400">Atur Logo, Teks, FAQ Accordion, Testimoni Title & Form RSVP Pendaftaran</p>
       </div>
     </div>
 
@@ -109,7 +109,7 @@
           <i class="fas fa-quote-left"></i> Testimoni & FAQ
         </button>
         <button onclick="switchTab('tab-integration')" id="nav-tab-integration" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
-          <i class="fas fa-paper-plane"></i> Form & WA
+          <i class="fas fa-paper-plane"></i> Form & RSVP
         </button>
       </div>
 
@@ -126,12 +126,12 @@
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Tipe Logo Header</label>
             <select id="cfg-logoType" onchange="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300">
-              <option value="image">Gambar Logo (URL Gambar PNG/JPG)</option>
               <option value="initial">Inisial Huruf (Icon Bulat)</option>
+              <option value="image">Gambar Logo (URL Gambar PNG/JPG)</option>
             </select>
           </div>
 
-          <div id="logoUrlContainer">
+          <div id="logoUrlContainer" class="hidden">
             <label class="block text-xs font-bold text-slate-700 mb-1">URL Gambar Logo Sekolah</label>
             <input type="text" id="cfg-logoUrl" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" placeholder="https://domain.com/logo.png">
           </div>
@@ -267,11 +267,16 @@
           <div id="activities-editor-list" class="space-y-3"></div>
         </div>
 
-        <!-- TAB 6: TESTIMONI & FAQ (DYNAMIC LIST) -->
-        <div id="tab-testimonials" class="tab-content hidden space-y-5">
+        <!-- TAB 6: TESTIMONI & FAQ (DYNAMIC LIST & EDITABLE TITLE) -->
+        <div id="tab-testimonials" class="tab-content hidden space-y-6">
           <div class="space-y-3">
-            <div class="flex justify-between items-center border-b pb-2">
-              <h3 class="font-bold text-slate-800 text-sm">Testimoni Orang Tua</h3>
+            <div class="border-b pb-2">
+              <label class="block text-xs font-bold text-slate-700 mb-1">Judul Seksi Testimoni</label>
+              <input type="text" id="cfg-testimonialSectionTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Kata Orang Tua Murid">
+            </div>
+
+            <div class="flex justify-between items-center pt-2">
+              <h4 class="font-bold text-slate-800 text-xs">Daftar Testimoni Orang Tua</h4>
               <button onclick="addItem('testimonials')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
                 <i class="fas fa-plus"></i> Tambah Testimoni
               </button>
@@ -280,8 +285,13 @@
           </div>
 
           <div class="space-y-3 pt-4 border-t">
-            <div class="flex justify-between items-center border-b pb-2">
-              <h3 class="font-bold text-slate-800 text-sm">Pertanyaan Sering Muncul (FAQ)</h3>
+            <div class="border-b pb-2">
+              <label class="block text-xs font-bold text-slate-700 mb-1">Judul Seksi FAQ</label>
+              <input type="text" id="cfg-faqSectionTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Pertanyaan Sering Muncul (FAQ)">
+            </div>
+
+            <div class="flex justify-between items-center pt-2">
+              <h4 class="font-bold text-slate-800 text-xs">Daftar FAQ Accordion</h4>
               <button onclick="addItem('faqs')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
                 <i class="fas fa-plus"></i> Tambah FAQ
               </button>
@@ -290,11 +300,21 @@
           </div>
         </div>
 
-        <!-- TAB 7: INTEGRASI FORM & WA -->
+        <!-- TAB 7: INTEGRASI FORM & RSVP WA -->
         <div id="tab-integration" class="tab-content hidden space-y-4">
           <div class="border-b pb-2">
-            <h3 class="font-bold text-slate-800 text-sm">Form Pendaftaran & Kontak WA</h3>
+            <h3 class="font-bold text-slate-800 text-sm">Form Pendaftaran, RSVP & Kontak WA</h3>
             <p class="text-xs text-slate-500">Hubungkan pendaftaran ke Google Sheets & WhatsApp Admin.</p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Judul Utama Formulir</label>
+            <input type="text" id="cfg-formTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Formulir Reservasi Tempat & RSVP">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Sub-Judul Formulir</label>
+            <input type="text" id="cfg-formSubtitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300" value="Satu langkah kecil menuju masa depan emas si kecil. Confirm kehadiran Anda sekarang!">
           </div>
 
           <div>
@@ -370,7 +390,6 @@
       btnPrimaryText: "Ikut Sit-In Class (Gratis)",
       btnWAText: "Tanya Admin WA",
       
-      // Dynamic Lists (Add, Delete, ReorderABLE)
       badges: [
         { id: 1, title: "100% Gratis", sub: "Tanpa dipungut biaya" },
         { id: 2, title: "Interaktif", sub: "60 Menit aktivitas nyata" },
@@ -393,15 +412,19 @@
         { id: 4, title: "🍳 Memasak", desc: "Mengaduk, menuang, dan mencicipi hasil karya kecilnya." }
       ],
 
+      testimonialSectionTitle: "Kata Orang Tua Murid",
       testimonials: [
         { id: 1, name: "Ibu Maria", role: "Mama Kenzo (Usia 3 Thn)", photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80", quote: "Awalnya khawatir Kenzo pemalu, tapi gurunya sangat gercep merangkul. Kenzo langsung betah!" }
       ],
 
+      faqSectionTitle: "Pertanyaan Sering Muncul (FAQ)",
       faqs: [
         { id: 1, q: "Apakah orang tua boleh menemani di kelas?", a: "Ya! Pada program Sit-In Class, orang tua dapat mendampingi si kecil secara penuh." },
         { id: 2, q: "Berapa lama durasi setiap sesi?", a: "Setiap sesi berlangsung selama 60 hingga 90 menit penuh aktivitas interaktif." }
       ],
 
+      formTitle: "Formulir Reservasi Tempat & RSVP",
+      formSubtitle: "Satu langkah kecil menuju masa depan emas si kecil. Confirm kehadiran Anda sekarang!",
       scriptUrl: "",
       whatsapp: "6287771414812",
       sessions: "Sesi Sabtu Pagi (09.00 - 10.30 WIB), Sesi Sabtu Siang (11.00 - 12.30 WIB)",
@@ -444,7 +467,6 @@
       }
     }
 
-    // LIST MANIPULATION FUNCTIONS: ADD, DELETE, MOVE UP, MOVE DOWN
     function addItem(listName) {
       const id = Date.now();
       if(listName === 'badges') {
@@ -483,7 +505,6 @@
       renderPreview();
     }
 
-    // RENDER EDITOR LIST CONTROLS IN SIDEBAR
     function renderEditorLists() {
       // Badges Editor
       const badgesContainer = document.getElementById('badges-editor-list');
@@ -594,10 +615,22 @@
       state.btnWAText = document.getElementById('cfg-btnWAText').value;
       state.uspSectionTitle = document.getElementById('cfg-uspSectionTitle').value;
       state.actSectionTitle = document.getElementById('cfg-actSectionTitle').value;
+      state.testimonialSectionTitle = document.getElementById('cfg-testimonialSectionTitle').value;
+      state.faqSectionTitle = document.getElementById('cfg-faqSectionTitle').value;
+      state.formTitle = document.getElementById('cfg-formTitle').value;
+      state.formSubtitle = document.getElementById('cfg-formSubtitle').value;
       state.scriptUrl = document.getElementById('cfg-scriptUrl').value;
       state.whatsapp = document.getElementById('cfg-whatsapp').value;
       state.sessions = document.getElementById('cfg-sessions').value;
       state.footerAddress = document.getElementById('cfg-footerAddress').value;
+
+      // Toggle logo url visibility
+      const logoUrlBox = document.getElementById('logoUrlContainer');
+      if(state.logoType === 'image') {
+        logoUrlBox.classList.remove('hidden');
+      } else {
+        logoUrlBox.classList.add('hidden');
+      }
 
       renderPreview();
     }
@@ -606,7 +639,6 @@
       const container = document.getElementById('live-preview');
       const sessionOptions = state.sessions.split(',').map(s => `<option value="${s.trim()}">${s.trim()}</option>`).join('');
 
-      // Header Logo Render
       let logoHtml = `<div style="background-color: ${state.colorAccent}" class="w-9 h-9 rounded-full text-slate-950 flex items-center justify-center font-bold text-lg ${state.headingFont}">${state.schoolName.charAt(0)}</div>`;
       if(state.logoType === 'image' && state.logoUrl) {
         logoHtml = `<img src="${state.logoUrl}" alt="Logo" class="h-9 w-auto object-contain">`;
@@ -632,6 +664,7 @@
             </div>
           </header>
 
+          <!-- HERO SECTION -->
           <section style="background-color: ${state.colorPrimary}" class="text-white py-12 px-4 relative overflow-hidden">
             <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center relative z-10">
               <div>
@@ -663,7 +696,7 @@
             </div>
           </section>
 
-          <!-- DYNAMIC RIBBON BADGES -->
+          <!-- RIBBON BADGES -->
           <section class="max-w-5xl mx-auto px-4 -mt-6 relative z-20">
             <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-4 grid grid-cols-2 md:grid-cols-${Math.min(state.badges.length, 4)} gap-4 text-center">
               ${state.badges.map((b, idx) => `
@@ -675,7 +708,7 @@
             </div>
           </section>
 
-          <!-- DYNAMIC USPS -->
+          <!-- USPS -->
           <section class="max-w-5xl mx-auto px-4 py-14">
             <div class="text-center mb-10">
               <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl sm:text-3xl">${state.uspSectionTitle}</h2>
@@ -691,7 +724,7 @@
             </div>
           </section>
 
-          <!-- DYNAMIC ACTIVITIES -->
+          <!-- ACTIVITIES -->
           <section class="bg-white py-14 border-y border-slate-100">
             <div class="max-w-5xl mx-auto px-4">
               <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl sm:text-3xl text-center mb-8">${state.actSectionTitle}</h2>
@@ -705,14 +738,14 @@
             </div>
           </section>
 
-          <!-- TESTIMONIALS & FAQ -->
+          <!-- TESTIMONIALS SECTION -->
           ${state.testimonials.length > 0 ? `
           <section class="max-w-4xl mx-auto px-4 py-12">
-            <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl text-center mb-6">Kata Orang Tua Murid</h2>
+            <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl text-center mb-6">${state.testimonialSectionTitle}</h2>
             <div class="grid gap-4">
               ${state.testimonials.map(t => `
                 <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-start gap-4">
-                  <img src="${t.photo}" class="w-12 h-12 rounded-full object-cover">
+                  <img src="${t.photo}" class="w-12 h-12 rounded-full object-cover border-2 border-emerald-100">
                   <div>
                     <p class="text-xs text-slate-600 italic">"${t.quote}"</p>
                     <span class="block text-xs font-bold text-slate-800 mt-2">${t.name} <span class="font-normal text-slate-400">(${t.role})</span></span>
@@ -722,11 +755,31 @@
             </div>
           </section>` : ''}
 
-          <!-- FORM CONVERSION -->
+          <!-- FAQ ACCORDION SECTION -->
+          ${state.faqs.length > 0 ? `
+          <section class="bg-slate-100 py-12 border-t border-slate-200">
+            <div class="max-w-3xl mx-auto px-4">
+              <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl text-center mb-6">${state.faqSectionTitle}</h2>
+              <div class="space-y-3">
+                ${state.faqs.map(f => `
+                  <details class="group bg-white p-4 rounded-2xl border border-slate-200 shadow-sm cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-xs sm:text-sm text-slate-800 select-none">
+                      <span>${f.q}</span>
+                      <span class="transition group-open:rotate-180 text-slate-400"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <p class="mt-3 text-xs text-slate-600 leading-relaxed border-t pt-3 border-slate-100">${f.a}</p>
+                  </details>
+                `).join('')}
+              </div>
+            </div>
+          </section>` : ''}
+
+          <!-- FORM CONVERSION & RSVP -->
           <section id="daftar-form" class="max-w-xl mx-auto px-4 py-16">
             <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-slate-100">
               <div class="text-center mb-6">
-                <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl">Formulir Pendaftaran</h2>
+                <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-2xl">${state.formTitle}</h2>
+                <p class="text-xs text-slate-500 mt-1">${state.formSubtitle}</p>
               </div>
               <form onsubmit="event.preventDefault(); alert('Ini tampilan live preview.');" class="space-y-4">
                 <div>
@@ -748,9 +801,16 @@
                   <input type="tel" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs" placeholder="08123456789">
                 </div>
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Sesi</label>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Sesi Uji Coba</label>
                   <select required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white">
                     ${sessionOptions}
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Konfirmasi Kehadiran RSVP</label>
+                  <select required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white">
+                    <option value="Pasti Hadir Sesuai Jadwal">✅ Pasti Hadir Sesuai Jadwal</option>
+                    <option value="Butuh Konfirmasi Admin Dulu">💬 Butuh Tanya Admin Dulu Via WA</option>
                   </select>
                 </div>
                 <button type="submit" style="background-color: ${state.colorAccent}" class="w-full text-slate-950 font-extrabold py-3.5 rounded-xl shadow-lg transition text-xs sm:text-sm">
@@ -791,7 +851,6 @@
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-jakarta antialiased">
-  <!-- Dynamic Generated Page Content -->
   ${document.getElementById('live-preview').innerHTML}
 </body>
 </html>`;
