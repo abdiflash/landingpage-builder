@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page Builder - Sit-In Class KB-TK Athalia</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts: Poetsen One (Playful Bold Heading) & Plus Jakarta Sans (Clean Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            athalia: {
+              teal: '#094B5C',
+              tealDark: '#063440',
+              emerald: '#135D49',
+              gold: '#FACC15',
+              goldHover: '#EAB308',
+              softBg: '#F2F9F7',
+              navy: '#1E293B'
+            }
+          },
+          fontFamily: {
+            poetsen: ['Poetsen One', 'sans-serif'],
+            jakarta: ['Plus Jakarta Sans', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-heading { font-family: 'Poetsen One', cursive, sans-serif; }
+    
+    /* Device frames for Live Preview */
+    .view-desktop { width: 100%; height: 100%; transition: all 0.3s ease; }
+    .view-tablet { width: 768px; height: 90%; margin: 20px auto; border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); overflow-y: auto; }
+    .view-mobile { width: 375px; height: 85%; margin: 20px auto; border-radius: 36px; border: 12px solid #1e293b; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3); overflow-y: auto; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 h-screen overflow-hidden flex flex-col">
+
+  <!-- APP HEADER BAR -->
+  <header class="bg-athalia-teal text-white px-6 py-3 flex items-center justify-between shadow-md z-30">
+    <div class="flex items-center gap-3">
+      <div class="bg-athalia-gold text-athalia-tealDark font-bold p-2.5 rounded-xl flex items-center justify-center">
+        <i class="fas fa-layer-group text-xl"></i>
+      </div>
+      <div>
+        <h1 class="font-heading font-normal text-lg tracking-wide leading-tight">Athalia Landing Page Builder</h1>
+        <p class="text-xs text-emerald-200">Generator Sit-In Class (Font Poetsen One & Style Tribelio)</p>
+      </div>
+    </div>
+
+    <!-- Responsive View Switcher -->
+    <div class="hidden md:flex items-center bg-athalia-tealDark p-1 rounded-xl border border-teal-700/50">
+      <button onclick="setDeviceView('desktop')" id="btn-desktop" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-athalia-teal flex items-center gap-2 transition">
+        <i class="fas fa-desktop"></i> PC / Laptop
+      </button>
+      <button onclick="setDeviceView('tablet')" id="btn-tablet" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-teal-200 hover:text-white flex items-center gap-2 transition">
+        <i class="fas fa-tablet-alt"></i> Tablet
+      </button>
+      <button onclick="setDeviceView('mobile')" id="btn-mobile" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-teal-200 hover:text-white flex items-center gap-2 transition">
+        <i class="fas fa-mobile-alt"></i> Hape (375px)
+      </button>
+    </div>
+
+    <!-- Export Action -->
+    <div class="flex items-center gap-2">
+      <button onclick="openExportModal()" class="bg-athalia-gold hover:bg-athalia-goldHover text-athalia-tealDark font-bold text-xs px-4 py-2.5 rounded-xl flex items-center gap-2 shadow transition">
+        <i class="fas fa-code"></i> Export HTML Standalone
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN SPLIT SCREEN WORKSPACE -->
+  <div class="flex-1 flex overflow-hidden">
+    
+    <!-- LEFT PANEL: CONFIGURATOR EDITOR -->
+    <aside class="w-full lg:w-[460px] xl:w-[500px] bg-white border-r border-slate-200 flex flex-col h-full z-20 shadow-lg">
+      
+      <!-- Editor Navigation Tabs -->
+      <div class="flex border-b border-slate-200 bg-slate-50 text-xs font-semibold overflow-x-auto">
+        <button onclick="switchTab('tab-hero')" id="nav-tab-hero" class="tab-btn px-4 py-3 border-b-2 border-athalia-teal text-athalia-teal flex items-center gap-2 whitespace-nowrap">
+          <i class="fas fa-home"></i> Branding & Hero
+        </button>
+        <button onclick="switchTab('tab-usp')" id="nav-tab-usp" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
+          <i class="fas fa-bullseye"></i> Pain Point & USP
+        </button>
+        <button onclick="switchTab('tab-activities')" id="nav-tab-activities" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
+          <i class="fas fa-child"></i> Aktivitas & Usia
+        </button>
+        <button onclick="switchTab('tab-conversion')" id="nav-tab-conversion" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
+          <i class="fas fa-paper-plane"></i> Form & WA
+        </button>
+      </div>
+
+      <!-- Editor Body Inputs -->
+      <div class="flex-1 overflow-y-auto p-5 space-y-5">
+        
+        <!-- TAB 1: BRANDING & HERO -->
+        <div id="tab-hero" class="tab-content space-y-4">
+          <div class="border-b pb-2">
+            <h3 class="font-heading text-slate-800 text-sm text-athalia-teal">Identitas & Hero Banner</h3>
+            <p class="text-xs text-slate-500">Atur running banner urgency dan headline utama.</p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Nama Sekolah</label>
+            <input type="text" id="cfg-schoolName" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-athalia-teal focus:outline-none" value="Sekolah Athalia KB-TK">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Running Urgency Text (Ticker)</label>
+            <input type="text" id="cfg-urgencyText" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-athalia-teal focus:outline-none" value="🔥 KUOTA TERBATAS: Sisa 7 Kursi Percobaan Gratis Bulan Ini!">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Judul Utama Hero (Poetsen One)</label>
+            <input type="text" id="cfg-heroTitle" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-athalia-teal focus:outline-none" value="Little Hands, Big Wonder.">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Sub-Judul Hero</label>
+            <textarea id="cfg-heroSub" oninput="updateState()" rows="3" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-athalia-teal focus:outline-none">Satu hari bermain di kelas KB-TK Athalia. Si kecil belajar langsung bersama murid dan guru kami lewat pengalaman nyata dan suasana penuh sukacita.</textarea>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">URL Gambar Banner Hero</label>
+            <input type="text" id="cfg-heroImg" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-athalia-teal focus:outline-none" value="https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=800&q=80">
+          </div>
+        </div>
+
+        <!-- TAB 2: PAIN POINT & USP -->
+        <div id="tab-usp" class="tab-content hidden space-y-4">
+          <div class="border-b pb-2">
+            <h3 class="font-heading text-slate-800 text-sm text-athalia-teal">Unique Selling Points (USP)</h3>
+            <p class="text-xs text-slate-500">Menjawab keraguan orang tua calon pendaftar.</p>
+          </div>
+
+          <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+            <span class="text-xs font-bold text-athalia-teal">USP 1: Teacher Fit</span>
+            <input type="text" id="cfg-usp1Title" oninput="updateState()" class="w-full text-xs p-2 rounded border border-slate-300" value="Teacher Fit & Guru Gercep">
+            <textarea id="cfg-usp1Desc" oninput="updateState()" rows="2" class="w-full text-xs p-2 rounded border border-slate-300">Guru-guru terlatih yang sigap, hangat, dan cakap merangkul emosi anak walau belum resmi menjadi siswa Athalia.</textarea>
+          </div>
+
+          <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+            <span class="text-xs font-bold text-athalia-teal">USP 2: Judgment-Free</span>
+            <input type="text" id="cfg-usp2Title" oninput="updateState()" class="w-full text-xs p-2 rounded border border-slate-300" value="Judgment-Free Environment">
+            <textarea id="cfg-usp2Desc" oninput="updateState()" rows="2" class="w-full text-xs p-2 rounded border border-slate-300">Orang tua dan anak merasa aman tanpa rasa khawatir dihakimi saat menghadapi tantangan penyesuaian awal.</textarea>
+          </div>
+
+          <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+            <span class="text-xs font-bold text-athalia-teal">USP 3: Partnership</span>
+            <input type="text" id="cfg-usp3Title" oninput="updateState()" class="w-full text-xs p-2 rounded border border-slate-300" value="Kemitraan Sejajar Sekolah & Ortu">
+            <textarea id="cfg-usp3Desc" oninput="updateState()" rows="2" class="w-full text-xs p-2 rounded border border-slate-300">Orang tua diajak berkolaborasi aktif dengan tim pendidik untuk memantau perkembangan dan karakter anak.</textarea>
+          </div>
+        </div>
+
+        <!-- TAB 3: AKTIVITAS & USIA -->
+        <div id="tab-activities" class="tab-content hidden space-y-4">
+          <div class="border-b pb-2">
+            <h3 class="font-heading text-slate-800 text-sm text-athalia-teal">Aktivitas & Kategori Usia</h3>
+            <p class="text-xs text-slate-500">Materi kegiatan eksplorasi anak saat Sit-In Class.</p>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-xs font-bold text-slate-700">Aktivitas Nyata di Kelas</label>
+            <input type="text" id="cfg-act1" oninput="updateState()" class="w-full text-xs p-2 rounded border border-slate-300 mb-1" value="✋ Meraba Tekstur: Mengenal dunia lewat sentuhan lembut, kasar, basah & kering.">
+            <input type="text" id="cfg-act2" oninput="updateState()" class="w-full text-xs p-2 rounded border border-slate-300 mb-1" value="🎭 Bermain Peran: Menjadi dokter, pedagang, atau koki bersama teman baru.">
+            <input type="text" id="cfg-act3" oninput="updateState()" class="w-full text-xs p-2 rounded border border-slate-300 mb-1" value="🌱 Menanam: Menyentuh tanah dan merawat tanaman dengan tangan sendiri.">
+            <input type="text" id="cfg-act4" oninput="updateState()" class="w-full text-xs p-2 rounded border border-slate-300 mb-1" value="🍳 Memasak: Mengaduk, menuang, dan mencicipi hasil karya kecilnya.">
+          </div>
+        </div>
+
+        <!-- TAB 4: FORM & WA -->
+        <div id="tab-conversion" class="tab-content hidden space-y-4">
+          <div class="border-b pb-2">
+            <h3 class="font-heading text-slate-800 text-sm text-athalia-teal">Integrasi Form & WhatsApp</h3>
+            <p class="text-xs text-slate-500">Hubungkan formulir pendaftaran ke Sheets & WhatsApp.</p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Google Apps Script Web App URL</label>
+            <input type="text" id="cfg-scriptUrl" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-athalia-teal focus:outline-none" placeholder="https://script.google.com/macros/s/.../exec">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Nomor WhatsApp Admin (Format 62...)</label>
+            <input type="text" id="cfg-whatsapp" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-athalia-teal focus:outline-none" value="6287771414812">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Pilihan Jadwal Uji Coba (Pisahkan Koma)</label>
+            <input type="text" id="cfg-sessions" oninput="updateState()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-athalia-teal focus:outline-none" value="Sesi Sabtu Pagi (09.00 - 10.30 WIB), Sesi Sabtu Siang (11.00 - 12.30 WIB)">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Alamat Sekolah / Footer Text</label>
+            <textarea id="cfg-footerAddress" oninput="updateState()" rows="2" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-athalia-teal focus:outline-none">Regensi Melati Mas Blok B1, D1, B14, BSD, Serpong Utara, Tangerang Selatan</textarea>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- RIGHT PANEL: LIVE PREVIEW CANVAS -->
+    <main class="flex-1 bg-slate-200 overflow-hidden flex flex-col justify-center items-center relative">
+      <div id="preview-wrapper" class="view-desktop bg-white overflow-y-auto">
+        <div id="live-preview"></div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- EXPORT CODE MODAL -->
+  <div id="exportModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 bg-athalia-teal text-white flex justify-between items-center">
+        <h3 class="font-heading font-normal text-lg"><i class="fas fa-code mr-2"></i> Kode HTML Standalone (Poetsen One Font)</h3>
+        <button onclick="closeExportModal()" class="text-teal-200 hover:text-white text-xl"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="p-6 flex-1 overflow-y-auto space-y-4">
+        <p class="text-xs text-slate-600">Simpan kode di bawah sebagai file <code class="bg-slate-100 px-1.5 py-0.5 rounded text-rose-600 font-mono text-xs">index.html</code> untuk langsung dideploy ke Vercel atau GitHub Pages.</p>
+        <textarea id="exportCodeTextarea" readonly class="w-full h-80 p-4 font-mono text-xs bg-slate-900 text-emerald-400 rounded-xl focus:outline-none"></textarea>
+      </div>
+      <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex justify-end gap-3">
+        <button onclick="closeExportModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800">Tutup</button>
+        <button onclick="copyGeneratedHTML()" class="bg-athalia-teal hover:bg-athalia-tealDark text-white font-bold text-xs px-5 py-2.5 rounded-xl flex items-center gap-2 shadow">
+          <i class="fas fa-copy"></i> Salin Seluruh Kode
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION LOGIC -->
+  <script>
+    let state = {
+      schoolName: "Sekolah Athalia KB-TK",
+      urgencyText: "🔥 KUOTA TERBATAS: Sisa 7 Kursi Percobaan Gratis Bulan Ini!",
+      heroTitle: "Little Hands, Big Wonder.",
+      heroSub: "Satu hari bermain di kelas KB-TK Athalia. Si kecil belajar langsung bersama murid dan guru kami lewat pengalaman nyata dan suasana penuh sukacita.",
+      heroImg: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=800&q=80",
+      usp1Title: "Teacher Fit & Guru Gercep",
+      usp1Desc: "Guru-guru terlatih yang sigap, hangat, dan cakap merangkul emosi anak walau belum resmi menjadi siswa Athalia.",
+      usp2Title: "Judgment-Free Environment",
+      usp2Desc: "Orang tua dan anak merasa aman tanpa rasa khawatir dihakimi saat menghadapi tantangan penyesuaian awal.",
+      usp3Title: "Kemitraan Sejajar Sekolah & Ortu",
+      usp3Desc: "Orang tua diajak berkolaborasi aktif dengan tim pendidik untuk memantau perkembangan dan karakter anak.",
+      act1: "✋ Meraba Tekstur: Mengenal dunia lewat sentuhan lembut, kasar, basah & kering.",
+      act2: "🎭 Bermain Peran: Menjadi dokter, pedagang, atau koki bersama teman baru.",
+      act3: "🌱 Menanam: Menyentuh tanah dan merawat tanaman dengan tangan sendiri.",
+      act4: "🍳 Memasak: Mengaduk, menuang, dan mencicipi hasil karya kecilnya.",
+      scriptUrl: "",
+      whatsapp: "6287771414812",
+      sessions: "Sesi Sabtu Pagi (09.00 - 10.30 WIB), Sesi Sabtu Siang (11.00 - 12.30 WIB)",
+      footerAddress: "Regensi Melati Mas Blok B1, D1, B14, BSD, Serpong Utara, Tangerang Selatan"
+    };
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('border-athalia-teal', 'text-athalia-teal');
+        btn.classList.add('border-transparent', 'text-slate-500');
+      });
+
+      document.getElementById(tabId).classList.remove('hidden');
+      const activeNav = document.getElementById('nav-' + tabId);
+      activeNav.classList.remove('border-transparent', 'text-slate-500');
+      activeNav.classList.add('border-athalia-teal', 'text-athalia-teal');
+    }
+
+    function setDeviceView(type) {
+      const wrapper = document.getElementById('preview-wrapper');
+      const btnD = document.getElementById('btn-desktop');
+      const btnT = document.getElementById('btn-tablet');
+      const btnM = document.getElementById('btn-mobile');
+
+      btnD.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-teal-200 hover:text-white flex items-center gap-2 transition";
+      btnT.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-teal-200 hover:text-white flex items-center gap-2 transition";
+      btnM.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-teal-200 hover:text-white flex items-center gap-2 transition";
+
+      wrapper.className = "bg-white overflow-y-auto ";
+      if(type === 'desktop') {
+        wrapper.classList.add('view-desktop');
+        btnD.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-athalia-teal flex items-center gap-2 transition";
+      } else if(type === 'tablet') {
+        wrapper.classList.add('view-tablet');
+        btnT.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-athalia-teal flex items-center gap-2 transition";
+      } else if(type === 'mobile') {
+        wrapper.classList.add('view-mobile');
+        btnM.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-athalia-teal flex items-center gap-2 transition";
+      }
+    }
+
+    function updateState() {
+      state.schoolName = document.getElementById('cfg-schoolName').value;
+      state.urgencyText = document.getElementById('cfg-urgencyText').value;
+      state.heroTitle = document.getElementById('cfg-heroTitle').value;
+      state.heroSub = document.getElementById('cfg-heroSub').value;
+      state.heroImg = document.getElementById('cfg-heroImg').value;
+      state.usp1Title = document.getElementById('cfg-usp1Title').value;
+      state.usp1Desc = document.getElementById('cfg-usp1Desc').value;
+      state.usp2Title = document.getElementById('cfg-usp2Title').value;
+      state.usp2Desc = document.getElementById('cfg-usp2Desc').value;
+      state.usp3Title = document.getElementById('cfg-usp3Title').value;
+      state.usp3Desc = document.getElementById('cfg-usp3Desc').value;
+      state.act1 = document.getElementById('cfg-act1').value;
+      state.act2 = document.getElementById('cfg-act2').value;
+      state.act3 = document.getElementById('cfg-act3').value;
+      state.act4 = document.getElementById('cfg-act4').value;
+      state.scriptUrl = document.getElementById('cfg-scriptUrl').value;
+      state.whatsapp = document.getElementById('cfg-whatsapp').value;
+      state.sessions = document.getElementById('cfg-sessions').value;
+      state.footerAddress = document.getElementById('cfg-footerAddress').value;
+
+      renderPreview();
+    }
+
+    function renderPreview() {
+      const container = document.getElementById('live-preview');
+      const sessionOptions = state.sessions.split(',').map(s => `<option value="${s.trim()}">${s.trim()}</option>`).join('');
+
+      container.innerHTML = `
+        <div class="bg-athalia-softBg text-slate-800 min-h-full font-jakarta">
+          
+          <!-- ANNOUNCEMENT TICKER -->
+          <div class="bg-athalia-gold text-athalia-tealDark text-xs font-bold py-2 px-4 text-center">
+            ${state.urgencyText}
+          </div>
+
+          <!-- HEADER -->
+          <header class="bg-athalia-teal text-white sticky top-0 z-30 shadow-md">
+            <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-athalia-gold text-athalia-tealDark flex items-center justify-center font-bold text-lg font-heading">A</div>
+                <div>
+                  <div class="font-heading font-normal text-base leading-tight">${state.schoolName}</div>
+                  <div class="text-[10px] text-emerald-200 uppercase tracking-widest font-semibold">Sit-In Class Program</div>
+                </div>
+              </div>
+              <a href="#daftar-form" class="bg-athalia-gold hover:bg-athalia-goldHover text-athalia-tealDark font-extrabold text-xs px-4 py-2 rounded-full shadow transition">Daftar Sesi</a>
+            </div>
+          </header>
+
+          <!-- HERO SECTION -->
+          <section class="bg-athalia-teal text-white py-12 px-4 relative overflow-hidden">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center relative z-10">
+              <div>
+                <span class="inline-block bg-teal-800/80 text-athalia-gold border border-teal-600/50 text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider mb-4">
+                  ✨ Sesi Percobaan Bebas Risiko
+                </span>
+                <h1 class="font-heading font-normal text-3xl sm:text-4xl lg:text-5xl leading-tight text-white">
+                  ${state.heroTitle}
+                </h1>
+                <p class="mt-4 text-teal-100 text-sm sm:text-base leading-relaxed">
+                  ${state.heroSub}
+                </p>
+                
+                <div class="mt-6 flex flex-col sm:flex-row gap-3">
+                  <a href="#daftar-form" class="bg-athalia-gold hover:bg-athalia-goldHover text-athalia-tealDark font-extrabold px-6 py-3.5 rounded-2xl text-center shadow-lg transition text-sm">
+                    Ikut Sit-In Class (Gratis)
+                  </a>
+                  <a href="https://wa.me/${state.whatsapp}?text=Halo%20Admin%20Athalia,%20saya%20tanya%20Sit-In%20Class" target="_blank" class="border border-teal-400/50 hover:bg-teal-800/40 text-white font-semibold px-5 py-3.5 rounded-2xl text-center flex items-center justify-center gap-2 text-sm">
+                    <i class="fab fa-whatsapp text-emerald-400 text-lg"></i> Tanya Admin WA
+                  </a>
+                </div>
+              </div>
+
+              <div class="relative">
+                <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10">
+                  <img src="${state.heroImg}" alt="Hero Image" class="w-full h-72 sm:h-80 object-cover">
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- HIGHLIGHT RIBBON -->
+          <section class="max-w-5xl mx-auto px-4 -mt-6 relative z-20">
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+              <div class="p-2">
+                <span class="block font-heading text-athalia-teal text-base sm:text-lg">100% Gratis</span>
+                <span class="text-[11px] text-slate-500">Tanpa dipungut biaya</span>
+              </div>
+              <div class="p-2 border-l border-slate-100">
+                <span class="block font-heading text-athalia-teal text-base sm:text-lg">Interaktif</span>
+                <span class="text-[11px] text-slate-500">60 Menit aktivitas nyata</span>
+              </div>
+              <div class="p-2 border-l border-slate-100">
+                <span class="block font-heading text-athalia-teal text-base sm:text-lg">Pendampingan</span>
+                <span class="text-[11px] text-slate-500">Orang tua ikut masuk</span>
+              </div>
+              <div class="p-2 border-l border-slate-100">
+                <span class="block font-heading text-athalia-teal text-base sm:text-lg">Kuota Terbatas</span>
+                <span class="text-[11px] text-slate-500">Maksimal 8 anak/sesi</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- USP SECTION -->
+          <section class="max-w-5xl mx-auto px-4 py-14">
+            <div class="text-center mb-10">
+              <h2 class="font-heading text-2xl sm:text-3xl text-athalia-teal">Kenapa Harus Mencoba Sit-In Class Athalia?</h2>
+              <p class="text-xs sm:text-sm text-slate-600 mt-2">Menjawab kekhawatiran orang tua dalam memilih sekolah pertama bagi anak.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+              <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                <div class="w-12 h-12 bg-emerald-100 text-athalia-emerald rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-heart"></i></div>
+                <h3 class="font-heading text-lg text-slate-800 mb-2">${state.usp1Title}</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">${state.usp1Desc}</p>
+              </div>
+
+              <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-smile"></i></div>
+                <h3 class="font-heading text-lg text-slate-800 mb-2">${state.usp2Title}</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">${state.usp2Desc}</p>
+              </div>
+
+              <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                <div class="w-12 h-12 bg-teal-100 text-athalia-teal rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-hands-helping"></i></div>
+                <h3 class="font-heading text-lg text-slate-800 mb-2">${state.usp3Title}</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">${state.usp3Desc}</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ACTIVITIES SECTION -->
+          <section class="bg-white py-14 border-y border-slate-100">
+            <div class="max-w-5xl mx-auto px-4">
+              <h2 class="font-heading text-2xl sm:text-3xl text-center text-athalia-teal mb-8">Bukan Sekadar Melihat-Lihat</h2>
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div class="p-4 bg-athalia-softBg rounded-2xl border border-teal-100 flex items-start gap-3">
+                  <div class="text-sm text-slate-700 leading-relaxed">${state.act1}</div>
+                </div>
+                <div class="p-4 bg-athalia-softBg rounded-2xl border border-teal-100 flex items-start gap-3">
+                  <div class="text-sm text-slate-700 leading-relaxed">${state.act2}</div>
+                </div>
+                <div class="p-4 bg-athalia-softBg rounded-2xl border border-teal-100 flex items-start gap-3">
+                  <div class="text-sm text-slate-700 leading-relaxed">${state.act3}</div>
+                </div>
+                <div class="p-4 bg-athalia-softBg rounded-2xl border border-teal-100 flex items-start gap-3">
+                  <div class="text-sm text-slate-700 leading-relaxed">${state.act4}</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- FORM CONVERSION SECTION -->
+          <section id="daftar-form" class="max-w-xl mx-auto px-4 py-16">
+            <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-teal-100">
+              <div class="text-center mb-6">
+                <h2 class="font-heading text-2xl text-athalia-teal">Formulir Reservasi Tempat</h2>
+                <p class="text-xs text-slate-500 mt-1">Satu langkah kecil menuju perkembangan emas si kecil.</p>
+              </div>
+
+              <form onsubmit="event.preventDefault(); alert('Ini tampilan live preview. Di file export HTML, form langsung terhubung ke Google Sheets & WA!');" class="space-y-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Nama Orang Tua</label>
+                  <input type="text" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-athalia-teal focus:outline-none" placeholder="Contoh: Ibu Maria">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Nama Anak</label>
+                    <input type="text" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-athalia-teal focus:outline-none" placeholder="Contoh: Kenzo">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Usia Anak</label>
+                    <select required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-athalia-teal focus:outline-none bg-white">
+                      <option value="Batita (1-2 thn)">Batita (1-2 Thn)</option>
+                      <option value="Pra-TK (3 thn)">Pra-TK (3 Thn)</option>
+                      <option value="TK A (4 thn)">TK A (4 Thn)</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Nomor WhatsApp Active</label>
+                  <input type="tel" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-athalia-teal focus:outline-none" placeholder="08123456789">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Sesi Uji Coba</label>
+                  <select required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-athalia-teal focus:outline-none bg-white">
+                    ${sessionOptions}
+                  </select>
+                </div>
+
+                <button type="submit" class="w-full bg-athalia-gold hover:bg-athalia-goldHover text-athalia-tealDark font-extrabold py-3.5 rounded-xl shadow-lg transition text-xs sm:text-sm mt-2">
+                  Kirim & Reservasi Kursi Sekarang
+                </button>
+              </form>
+            </div>
+          </section>
+
+          <!-- FOOTER -->
+          <footer class="bg-athalia-tealDark text-white py-8 px-4 text-center text-xs text-teal-200/80">
+            <p class="font-heading text-white text-sm mb-1">${state.schoolName}</p>
+            <p class="max-w-md mx-auto mb-4">${state.footerAddress}</p>
+            <p>© 2026 ${state.schoolName}. All rights reserved.</p>
+          </footer>
+
+          <a href="https://wa.me/${state.whatsapp}?text=Halo%20Admin,%20saya%20tanya%20Sit-In%20Class" target="_blank" class="fixed bottom-5 right-5 bg-emerald-500 hover:bg-emerald-600 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center text-2xl z-40 transition hover:scale-105">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+      `;
+    }
+
+    function generateStandaloneHTML() {
+      const sessionOptions = state.sessions.split(',').map(s => `<option value="${s.trim()}">${s.trim()}</option>`).join('\n              ');
+      
+      return `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sit-In Class - ${state.schoolName}</title>
+  <script src="https://cdn.tailwindcss.com"><\/script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            athalia: {
+              teal: '#094B5C',
+              tealDark: '#063440',
+              emerald: '#135D49',
+              gold: '#FACC15',
+              goldHover: '#EAB308',
+              softBg: '#F2F9F7'
+            }
+          },
+          fontFamily: {
+            poetsen: ['Poetsen One', 'sans-serif'],
+            jakarta: ['Plus Jakarta Sans', 'sans-serif']
+          }
+        }
+      }
+    }
+  <\/script>
+  <style>
+    .font-poetsen { font-family: 'Poetsen One', cursive, sans-serif; }
+  </style>
+</head>
+<body class="bg-athalia-softBg text-slate-800 font-jakarta antialiased">
+
+  <div class="bg-athalia-gold text-athalia-tealDark text-xs font-bold py-2 px-4 text-center">
+    ${state.urgencyText}
+  </div>
+
+  <header class="bg-athalia-teal text-white sticky top-0 z-30 shadow-md">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-athalia-gold text-athalia-tealDark flex items-center justify-center font-bold text-lg font-poetsen">A</div>
+        <div>
+          <div class="font-poetsen font-normal text-base leading-tight">${state.schoolName}</div>
+          <div class="text-[10px] text-emerald-200 uppercase tracking-widest font-semibold">Sit-In Class Program</div>
+        </div>
+      </div>
+      <a href="#daftar-form" class="bg-athalia-gold hover:bg-athalia-goldHover text-athalia-tealDark font-extrabold text-xs px-4 py-2 rounded-full shadow transition">Daftar Sesi</a>
+    </div>
+  </header>
+
+  <section class="bg-athalia-teal text-white py-12 px-4">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <span class="inline-block bg-teal-800/80 text-athalia-gold border border-teal-600/50 text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider mb-4">
+          ✨ Sesi Percobaan Bebas Risiko
+        </span>
+        <h1 class="font-poetsen text-3xl sm:text-4xl lg:text-5xl leading-tight text-white">
+          ${state.heroTitle}
+        </h1>
+        <p class="mt-4 text-teal-100 text-sm sm:text-base leading-relaxed">
+          ${state.heroSub}
+        </p>
+        <div class="mt-6 flex flex-col sm:flex-row gap-3">
+          <a href="#daftar-form" class="bg-athalia-gold hover:bg-athalia-goldHover text-athalia-tealDark font-extrabold px-6 py-3.5 rounded-2xl text-center shadow-lg transition text-sm">
+            Ikut Sit-In Class (Gratis)
+          </a>
+          <a href="https://wa.me/${state.whatsapp}?text=Halo%20Admin%20Athalia,%20saya%20tanya%20Sit-In%20Class" target="_blank" class="border border-teal-400/50 hover:bg-teal-800/40 text-white font-semibold px-5 py-3.5 rounded-2xl text-center flex items-center justify-center gap-2 text-sm">
+            <i class="fab fa-whatsapp text-emerald-400 text-lg"></i> Tanya Admin WA
+          </a>
+        </div>
+      </div>
+      <div>
+        <img src="${state.heroImg}" alt="Hero" class="w-full h-72 sm:h-80 object-cover rounded-3xl shadow-2xl border-4 border-white/10">
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-4 -mt-6 relative z-20">
+    <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+      <div class="p-2"><span class="block font-poetsen text-athalia-teal text-base sm:text-lg">100% Gratis</span><span class="text-[11px] text-slate-500">Tanpa dipungut biaya</span></div>
+      <div class="p-2 border-l border-slate-100"><span class="block font-poetsen text-athalia-teal text-base sm:text-lg">Interaktif</span><span class="text-[11px] text-slate-500">60 Menit aktivitas nyata</span></div>
+      <div class="p-2 border-l border-slate-100"><span class="block font-poetsen text-athalia-teal text-base sm:text-lg">Pendampingan</span><span class="text-[11px] text-slate-500">Orang tua ikut masuk</span></div>
+      <div class="p-2 border-l border-slate-100"><span class="block font-poetsen text-athalia-teal text-base sm:text-lg">Kuota Terbatas</span><span class="text-[11px] text-slate-500">Maksimal 8 anak/sesi</span></div>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-4 py-14">
+    <div class="text-center mb-10">
+      <h2 class="font-poetsen text-2xl sm:text-3xl text-athalia-teal">Kenapa Harus Mencoba Sit-In Class Athalia?</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+        <div class="w-12 h-12 bg-emerald-100 text-athalia-emerald rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-heart"></i></div>
+        <h3 class="font-poetsen text-lg text-slate-800 mb-2">${state.usp1Title}</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">${state.usp1Desc}</p>
+      </div>
+      <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+        <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-smile"></i></div>
+        <h3 class="font-poetsen text-lg text-slate-800 mb-2">${state.usp2Title}</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">${state.usp2Desc}</p>
+      </div>
+      <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+        <div class="w-12 h-12 bg-teal-100 text-athalia-teal rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-hands-helping"></i></div>
+        <h3 class="font-poetsen text-lg text-slate-800 mb-2">${state.usp3Title}</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">${state.usp3Desc}</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="daftar-form" class="max-w-xl mx-auto px-4 py-16">
+    <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-teal-100">
+      <div class="text-center mb-6">
+        <h2 class="font-poetsen text-2xl text-athalia-teal">Formulir Reservasi Tempat</h2>
+        <p class="text-xs text-slate-500 mt-1">Satu langkah kecil menuju perkembangan emas si kecil.</p>
+      </div>
+
+      <form id="leadForm" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nama Orang Tua</label>
+          <input type="text" id="parentName" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-athalia-teal focus:outline-none" placeholder="Contoh: Ibu Maria">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Nama Anak</label>
+            <input type="text" id="childName" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-athalia-teal focus:outline-none" placeholder="Contoh: Kenzo">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Usia Anak</label>
+            <select id="childAge" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-athalia-teal focus:outline-none bg-white">
+              <option value="Batita (1-2 thn)">Batita (1-2 Thn)</option>
+              <option value="Pra-TK (3 thn)">Pra-TK (3 Thn)</option>
+              <option value="TK A (4 thn)">TK A (4 Thn)</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nomor WhatsApp Active</label>
+          <input type="tel" id="whatsapp" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-athalia-teal focus:outline-none" placeholder="08123456789">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Sesi Uji Coba</label>
+          <select id="selectedSession" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-athalia-teal focus:outline-none bg-white">
+            ${sessionOptions}
+          </select>
+        </div>
+
+        <button type="submit" id="btnSubmit" class="w-full bg-athalia-gold hover:bg-athalia-goldHover text-athalia-tealDark font-extrabold py-3.5 rounded-xl shadow-lg transition text-xs sm:text-sm mt-2">
+          Kirim & Reservasi Kursi Sekarang
+        </button>
+      </form>
+      <div id="statusMsg" class="hidden mt-3 p-3 rounded-xl text-center text-xs font-semibold"></div>
+    </div>
+  </section>
+
+  <footer class="bg-athalia-tealDark text-white py-8 px-4 text-center text-xs text-teal-200/80">
+    <p class="font-poetsen text-white text-sm mb-1">${state.schoolName}</p>
+    <p class="max-w-md mx-auto mb-4">${state.footerAddress}</p>
+    <p>© 2026 ${state.schoolName}. All rights reserved.</p>
+  </footer>
+
+  <a href="https://wa.me/${state.whatsapp}?text=Halo%20Admin,%20saya%20tanya%20Sit-In%20Class" target="_blank" class="fixed bottom-5 right-5 bg-emerald-500 hover:bg-emerald-600 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center text-2xl z-40 transition hover:scale-105">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+    const scriptURL = '${state.scriptUrl}';
+    const form = document.getElementById('leadForm');
+    const btnSubmit = document.getElementById('btnSubmit');
+    const statusMsg = document.getElementById('statusMsg');
+
+    if(form) {
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        btnSubmit.disabled = true;
+        btnSubmit.innerText = 'Mengirim Data...';
+
+        const payload = {
+          parentName: document.getElementById('parentName').value,
+          childName: document.getElementById('childName').value,
+          childAge: document.getElementById('childAge').value,
+          whatsapp: document.getElementById('whatsapp').value,
+          selectedSession: document.getElementById('selectedSession').value
+        };
+
+        if(!scriptURL) {
+          const waText = \`Halo Admin, saya mendaftar Sit-In Class:\\n- Nama Ortu: \${payload.parentName}\\n- Nama Anak: \${payload.childName} (\${payload.childAge})\\n- Sesi: \${payload.selectedSession}\`;
+          window.open(\`https://wa.me/${state.whatsapp}?text=\${encodeURIComponent(waText)}\`, '_blank');
+          btnSubmit.disabled = false;
+          btnSubmit.innerText = 'Kirim & Reservasi Kursi Sekarang';
+          return;
+        }
+
+        fetch(scriptURL, { method: 'POST', body: JSON.stringify(payload) })
+        .then(res => {
+          btnSubmit.disabled = false;
+          btnSubmit.innerText = 'Kirim & Reservasi Kursi Sekarang';
+          statusMsg.className = "mt-3 p-3 rounded-xl text-center text-xs font-semibold bg-emerald-100 text-emerald-800";
+          statusMsg.innerText = "Pendaftaran Berhasil! Tim Admin akan segera menghubungi Anda.";
+          form.reset();
+        })
+        .catch(err => {
+          btnSubmit.disabled = false;
+          btnSubmit.innerText = 'Kirim & Reservasi Kursi Sekarang';
+          statusMsg.className = "mt-3 p-3 rounded-xl text-center text-xs font-semibold bg-rose-100 text-rose-800";
+          statusMsg.innerText = "Terjadi kesalahan. Data dialihkan langsung ke WhatsApp Admin.";
+          const waText = \`Halo Admin, saya mendaftar Sit-In Class:\\n- Nama Ortu: \${payload.parentName}\\n- Nama Anak: \${payload.childName} (\${payload.childAge})\\n- Sesi: \${payload.selectedSession}\`;
+          window.open(\`https://wa.me/${state.whatsapp}?text=\${encodeURIComponent(waText)}\`, '_blank');
+        });
+      });
+    }
+  <\/script>
+</body>
+</html>`;
+    }
+
+    function openExportModal() {
+      const modal = document.getElementById('exportModal');
+      const textarea = document.getElementById('exportCodeTextarea');
+      textarea.value = generateStandaloneHTML();
+      modal.classList.remove('hidden');
+    }
+
+    function closeExportModal() {
+      document.getElementById('exportModal').classList.add('hidden');
+    }
+
+    function copyGeneratedHTML() {
+      const textarea = document.getElementById('exportCodeTextarea');
+      textarea.select();
+      document.execCommand('copy');
+      alert('Kode HTML dengan Font Poetsen One berhasil disalin!');
+    }
+
+    window.onload = function() {
+      renderPreview();
+    };
+  </script>
+</body>
+</html>
