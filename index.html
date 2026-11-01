@@ -38,25 +38,12 @@
     .view-tablet { width: 768px; height: 90%; margin: 20px auto; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); overflow-y: auto; border: 8px solid #334155; }
     .view-mobile { width: 375px; height: 85%; margin: 20px auto; border-radius: 36px; border: 10px solid #1e293b; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3); overflow-y: auto; }
 
-    /* OVERRIDE CSS KHUSUS SIMULATOR BUILDER HAPE (375px) */
-    .view-mobile .mobile-grid-1col {
-      grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
-    }
-    .view-mobile .mobile-grid-2col {
-      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    }
-    .view-mobile .mobile-hide-tagline {
-      display: none !important;
-    }
-    .view-mobile .mobile-title-truncate {
-      max-width: 95px !important;
-      font-size: 11px !important;
-    }
-    .view-mobile .mobile-btn-compact {
-      font-size: 10px !important;
-      padding: 4px 8px !important;
-      max-width: 110px !important;
-    }
+    /* OVERRIDE CSS SIMULATOR BUILDER HAPE (375px) */
+    .view-mobile .mobile-grid-1col { grid-template-columns: repeat(1, minmax(0, 1fr)) !important; }
+    .view-mobile .mobile-grid-2col { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .view-mobile .mobile-hide-cta { display: none !important; }
+    .view-mobile .mobile-hide-tagline { display: none !important; }
+    .view-mobile .mobile-title-truncate { max-width: 140px !important; font-size: 12px !important; }
 
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #f1f5f9; }
@@ -75,7 +62,7 @@
       <div>
         <h1 class="font-bold text-base sm:text-lg leading-tight flex items-center gap-2">
           Modular School Funnel Builder
-          <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-mono uppercase">100% Mobile Optimized</span>
+          <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-mono uppercase">+ Timer & Kuota</span>
         </h1>
         <p class="text-xs text-slate-400">Builder Landing Page Sekolah Modular Berbahasa Indonesia & Inggris</p>
       </div>
@@ -105,7 +92,7 @@
   <!-- SPLIT SCREEN WORKSPACE -->
   <div class="flex-1 flex overflow-hidden">
     
-    <!-- PANEL KIRI: MODULAR BLOCK EDITOR (BAHASA INDONESIA) -->
+    <!-- PANEL KIRI: EDITOR MODULAR -->
     <aside class="w-full lg:w-[520px] xl:w-[560px] bg-white border-r border-slate-200 flex flex-col h-full z-20 shadow-lg">
       
       <!-- Sakelar Mode Pengeditan Bahasa Teks -->
@@ -120,10 +107,13 @@
       <!-- Navigasi Tab Editor -->
       <div class="flex border-b border-slate-200 bg-slate-50 text-xs font-semibold overflow-x-auto">
         <button onclick="switchTab('tab-branding')" id="nav-tab-branding" class="tab-btn px-4 py-3 border-b-2 border-emerald-600 text-emerald-600 flex items-center gap-2 whitespace-nowrap">
-          <i class="fas fa-id-card"></i> Logo & Identitas
+          <i class="fas fa-id-card"></i> Identitas
         </button>
         <button onclick="switchTab('tab-hero')" id="nav-tab-hero" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
           <i class="fas fa-image"></i> Hero & Tombol
+        </button>
+        <button onclick="switchTab('tab-urgency')" id="nav-tab-urgency" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
+          <i class="fas fa-stopwatch"></i> ⏱️ Timer & Kuota
         </button>
         <button onclick="switchTab('tab-badges')" id="nav-tab-badges" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
           <i class="fas fa-certificate"></i> Badge Ribbon
@@ -241,7 +231,53 @@
           </div>
         </div>
 
-        <!-- TAB 3: RIBBON BADGES -->
+        <!-- TAB 3: TIMER & KUOTA (URGENCY) -->
+        <div id="tab-urgency" class="tab-content hidden space-y-4">
+          <div class="border-b pb-2">
+            <h3 class="font-bold text-slate-800 text-sm">⏱️ Countdown Tanggal & Bar Kuota</h3>
+            <p class="text-xs text-slate-500">Mendorong calon ortu mendaftar lebih cepat tanpa menunda.</p>
+          </div>
+
+          <!-- Toggle & Input Countdown Tanggal -->
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-bold text-slate-800">Tampilkan Countdown Tanggal</label>
+              <input type="checkbox" id="cfg-showCountdown" onchange="updateStateFromInputs()" class="w-4 h-4 accent-emerald-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Judul Countdown (<span class="edit-lang-label text-emerald-600 font-extrabold">ID</span>)</label>
+              <input type="text" id="cfg-countdownTitle" oninput="updateStateFromInputs()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Target Tanggal & Jam (Hitung Mundur)</label>
+              <input type="datetime-local" id="cfg-countdownTarget" onchange="updateStateFromInputs()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300">
+            </div>
+          </div>
+
+          <!-- Toggle & Input Progress Bar Kuota -->
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-bold text-slate-800">Tampilkan Bar Kuota Kursi</label>
+              <input type="checkbox" id="cfg-showQuotaBar" onchange="updateStateFromInputs()" class="w-4 h-4 accent-emerald-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Judul Bar Kuota (<span class="edit-lang-label text-emerald-600 font-extrabold">ID</span>)</label>
+              <input type="text" id="cfg-quotaTitle" oninput="updateStateFromInputs()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300">
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Total Kuota Sesi</label>
+                <input type="number" id="cfg-totalQuota" oninput="updateStateFromInputs()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Sisa Kuota Tersedia</label>
+                <input type="number" id="cfg-remainingQuota" oninput="updateStateFromInputs()" class="w-full text-xs p-2.5 rounded-lg border border-slate-300">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: RIBBON BADGES -->
         <div id="tab-badges" class="tab-content hidden space-y-4">
           <div class="flex justify-between items-center border-b pb-2">
             <div>
@@ -256,7 +292,7 @@
           <div id="badges-editor-list" class="space-y-3"></div>
         </div>
 
-        <!-- TAB 4: KARTU USP -->
+        <!-- TAB 5: KARTU USP -->
         <div id="tab-usps" class="tab-content hidden space-y-4">
           <div class="flex justify-between items-center border-b pb-2">
             <div>
@@ -276,7 +312,7 @@
           <div id="usps-editor-list" class="space-y-3"></div>
         </div>
 
-        <!-- TAB 5: AKTIVITAS -->
+        <!-- TAB 6: AKTIVITAS -->
         <div id="tab-activities" class="tab-content hidden space-y-4">
           <div class="flex justify-between items-center border-b pb-2">
             <div>
@@ -296,7 +332,7 @@
           <div id="activities-editor-list" class="space-y-3"></div>
         </div>
 
-        <!-- TAB 6: TESTIMONI & FAQ -->
+        <!-- TAB 7: TESTIMONI & FAQ -->
         <div id="tab-testimonials" class="tab-content hidden space-y-6">
           <div class="space-y-3">
             <div class="border-b pb-2">
@@ -329,7 +365,7 @@
           </div>
         </div>
 
-        <!-- TAB 7: INTEGRASI FORM & RSVP -->
+        <!-- TAB 8: INTEGRASI FORM & RSVP -->
         <div id="tab-integration" class="tab-content hidden space-y-4">
           <div class="border-b pb-2">
             <h3 class="font-bold text-slate-800 text-sm">Formulir Pendaftaran, RSVP & WA</h3>
@@ -441,6 +477,21 @@
       btnWAText: {
         id: "Tanya Admin WA",
         en: "Chat Admin on WA"
+      },
+
+      // TIMER & KUOTA URGENCY STATE
+      showCountdown: true,
+      countdownTarget: "2026-11-30T23:59",
+      countdownTitle: {
+        id: "⏳ Pendaftaran Percobaan Ditutup Dalam:",
+        en: "⏳ Trial Registration Closes In:"
+      },
+      showQuotaBar: true,
+      totalQuota: 20,
+      remainingQuota: 7,
+      quotaTitle: {
+        id: "🔥 Status Kuota Kursi Bulan Ini",
+        en: "🔥 Seat Capacity Status This Month"
       },
       
       badges: [
@@ -622,6 +673,16 @@
       document.getElementById('cfg-heroImg').value = state.heroImg;
       document.getElementById('cfg-btnPrimaryText').value = state.btnPrimaryText[lang];
       document.getElementById('cfg-btnWAText').value = state.btnWAText[lang];
+
+      // Countdown Inputs
+      document.getElementById('cfg-showCountdown').checked = state.showCountdown;
+      document.getElementById('cfg-countdownTitle').value = state.countdownTitle[lang];
+      document.getElementById('cfg-countdownTarget').value = state.countdownTarget;
+      document.getElementById('cfg-showQuotaBar').checked = state.showQuotaBar;
+      document.getElementById('cfg-quotaTitle').value = state.quotaTitle[lang];
+      document.getElementById('cfg-totalQuota').value = state.totalQuota;
+      document.getElementById('cfg-remainingQuota').value = state.remainingQuota;
+
       document.getElementById('cfg-uspSectionTitle').value = state.uspSectionTitle[lang];
       document.getElementById('cfg-actSectionTitle').value = state.actSectionTitle[lang];
       document.getElementById('cfg-testimonialSectionTitle').value = state.testimonialSectionTitle[lang];
@@ -657,6 +718,16 @@
       state.heroImg = document.getElementById('cfg-heroImg').value;
       state.btnPrimaryText[lang] = document.getElementById('cfg-btnPrimaryText').value;
       state.btnWAText[lang] = document.getElementById('cfg-btnWAText').value;
+
+      // Countdown Inputs
+      state.showCountdown = document.getElementById('cfg-showCountdown').checked;
+      state.countdownTitle[lang] = document.getElementById('cfg-countdownTitle').value;
+      state.countdownTarget = document.getElementById('cfg-countdownTarget').value;
+      state.showQuotaBar = document.getElementById('cfg-showQuotaBar').checked;
+      state.quotaTitle[lang] = document.getElementById('cfg-quotaTitle').value;
+      state.totalQuota = parseInt(document.getElementById('cfg-totalQuota').value) || 20;
+      state.remainingQuota = parseInt(document.getElementById('cfg-remainingQuota').value) || 0;
+
       state.uspSectionTitle[lang] = document.getElementById('cfg-uspSectionTitle').value;
       state.actSectionTitle[lang] = document.getElementById('cfg-actSectionTitle').value;
       state.testimonialSectionTitle[lang] = document.getElementById('cfg-testimonialSectionTitle').value;
@@ -820,6 +891,10 @@
         logoHtml = `<img src="${state.logoUrl}" alt="Logo" class="h-7 sm:h-9 w-auto object-contain flex-shrink-0">`;
       }
 
+      // Hitung Persentase Terisi Kuota
+      const takenQuota = Math.max(0, state.totalQuota - state.remainingQuota);
+      const quotaPercent = Math.min(100, Math.round((takenQuota / state.totalQuota) * 100)) || 0;
+
       const labels = {
         parentName: lang === 'id' ? 'Nama Orang Tua / Wali' : 'Parent / Guardian Name',
         childName: lang === 'id' ? 'Nama Anak' : 'Child Name',
@@ -831,7 +906,11 @@
         rsvpNeedWA: lang === 'id' ? '💬 Butuh Tanya Admin Dulu Via WA' : '💬 Need Admin Confirmation via WA',
         placeholderParent: lang === 'id' ? 'Contoh: Ibu Maria' : 'e.g., Mrs. Maria',
         placeholderChild: lang === 'id' ? 'Contoh: Kenzo' : 'e.g., Kenzo',
-        placeholderAge: lang === 'id' ? 'Contoh: 3 Tahun' : 'e.g., 3 Years'
+        placeholderAge: lang === 'id' ? 'Contoh: 3 Tahun' : 'e.g., 3 Years',
+        days: lang === 'id' ? 'Hari' : 'Days',
+        hours: lang === 'id' ? 'Jam' : 'Hours',
+        mins: lang === 'id' ? 'Menit' : 'Mins',
+        secs: lang === 'id' ? 'Detik' : 'Secs'
       };
 
       container.innerHTML = `
@@ -841,22 +920,22 @@
             ${state.urgencyText[lang] || ''}
           </div>
 
-          <!-- HEADER NAVBAR RESPONSIVE SAFE -->
+          <!-- HEADER NAVBAR RESPONSIVE SAFE (BEBAS BENTROK DI HAPE) -->
           <header style="background-color: ${state.colorPrimary}" class="text-white sticky top-0 z-30 shadow-md">
-            <div class="max-w-6xl mx-auto px-2.5 sm:px-4 py-2 sm:py-3 flex justify-between items-center gap-1.5 overflow-hidden">
-              <div class="flex items-center gap-1.5 sm:gap-3 min-w-0">
+            <div class="max-w-6xl mx-auto px-3 sm:px-4 py-2 sm:py-3 flex justify-between items-center gap-2 overflow-hidden">
+              <div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
                 ${logoHtml}
                 <div class="min-w-0">
                   <div class="${state.headingFont} font-normal text-xs sm:text-base leading-tight truncate mobile-title-truncate">${state.schoolName}</div>
                   <div class="hidden sm:block text-[10px] text-teal-200 uppercase tracking-widest font-semibold truncate mobile-hide-tagline">${state.schoolTagline[lang] || ''}</div>
                 </div>
               </div>
-              <div class="flex items-center gap-1 sm:gap-3 flex-shrink-0">
-                <div class="bg-black/20 p-0.5 rounded-full flex border border-white/20 text-[9px] sm:text-xs">
-                  <button onclick="setPreviewLanguage('id')" class="px-1.5 py-0.5 sm:px-2.5 rounded-full font-bold ${lang === 'id' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇮🇩</button>
-                  <button onclick="setPreviewLanguage('en')" class="px-1.5 py-0.5 sm:px-2.5 rounded-full font-bold ${lang === 'en' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇬🇧</button>
+              <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                <div class="bg-black/20 p-1 rounded-full flex border border-white/20 text-[9px] sm:text-xs">
+                  <button onclick="setPreviewLanguage('id')" class="px-2 py-0.5 rounded-full font-bold ${lang === 'id' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇮🇩</button>
+                  <button onclick="setPreviewLanguage('en')" class="px-2 py-0.5 rounded-full font-bold ${lang === 'en' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇬🇧</button>
                 </div>
-                <a href="#daftar-form" style="background-color: ${state.colorAccent}" class="text-slate-950 font-extrabold text-[10px] sm:text-xs px-2 py-1 sm:px-4 sm:py-2 rounded-full shadow transition whitespace-nowrap truncate mobile-btn-compact">${state.btnPrimaryText[lang] || ''}</a>
+                <a href="#daftar-form" style="background-color: ${state.colorAccent}" class="hidden sm:inline-block text-slate-950 font-extrabold text-xs px-4 py-2 rounded-full shadow transition whitespace-nowrap mobile-hide-cta">${state.btnPrimaryText[lang] || ''}</a>
               </div>
             </div>
           </header>
@@ -893,9 +972,51 @@
             </div>
           </section>
 
-          <!-- RIBBON BADGES (FIXED OVERLAP DI HAPE: 2 KOLOM RAPI / 1 KOLOM) -->
-          <section class="max-w-5xl mx-auto px-4 -mt-4 sm:-mt-6 relative z-20">
-            <div class="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-100 p-3 sm:p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 text-center mobile-grid-2col">
+          <!-- SEKSI URGENCY: COUNTDOWN TIMER & BAR KUOTA -->
+          ${(state.showCountdown || state.showQuotaBar) ? `
+          <section class="max-w-4xl mx-auto px-4 -mt-3 sm:-mt-5 relative z-20">
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-4 sm:p-6 space-y-4">
+              
+              ${state.showCountdown ? `
+              <div class="text-center">
+                <p class="text-xs sm:text-sm font-bold text-slate-700 mb-2">${state.countdownTitle[lang] || ''}</p>
+                <div class="grid grid-cols-4 gap-2 max-w-xs mx-auto">
+                  <div class="bg-slate-900 text-white p-2 rounded-xl text-center">
+                    <span id="prev-cd-d" class="block font-bold text-base sm:text-xl text-yellow-400">02</span>
+                    <span class="text-[9px] uppercase tracking-wider text-slate-400 block">${labels.days}</span>
+                  </div>
+                  <div class="bg-slate-900 text-white p-2 rounded-xl text-center">
+                    <span id="prev-cd-h" class="block font-bold text-base sm:text-xl text-yellow-400">14</span>
+                    <span class="text-[9px] uppercase tracking-wider text-slate-400 block">${labels.hours}</span>
+                  </div>
+                  <div class="bg-slate-900 text-white p-2 rounded-xl text-center">
+                    <span id="prev-cd-m" class="block font-bold text-base sm:text-xl text-yellow-400">35</span>
+                    <span class="text-[9px] uppercase tracking-wider text-slate-400 block">${labels.mins}</span>
+                  </div>
+                  <div class="bg-slate-900 text-white p-2 rounded-xl text-center">
+                    <span id="prev-cd-s" class="block font-bold text-base sm:text-xl text-yellow-400">40</span>
+                    <span class="text-[9px] uppercase tracking-wider text-slate-400 block">${labels.secs}</span>
+                  </div>
+                </div>
+              </div>` : ''}
+
+              ${state.showQuotaBar ? `
+              <div class="space-y-1.5 pt-2 border-t border-slate-100">
+                <div class="flex justify-between items-center text-xs font-bold">
+                  <span class="text-slate-800">${state.quotaTitle[lang] || ''}</span>
+                  <span class="text-rose-600 font-extrabold">${state.remainingQuota} / ${state.totalQuota} ${lang === 'id' ? 'Kursi Tersisa' : 'Seats Left'}</span>
+                </div>
+                <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden p-0.5 border border-slate-200">
+                  <div style="width: ${quotaPercent}%" class="bg-gradient-to-r from-amber-400 to-rose-500 h-full rounded-full transition-all duration-500"></div>
+                </div>
+              </div>` : ''}
+
+            </div>
+          </section>` : ''}
+
+          <!-- RIBBON BADGES -->
+          <section class="max-w-5xl mx-auto px-4 py-8 sm:py-10">
+            <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-slate-100 p-3 sm:p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 text-center mobile-grid-2col">
               ${state.badges.map((b) => `
                 <div class="p-2 bg-slate-50 sm:bg-transparent rounded-lg sm:rounded-none border sm:border-0 border-slate-100">
                   <span style="color: ${state.colorPrimary}" class="block ${state.headingFont} text-xs sm:text-base font-bold">${b.title[lang] || ''}</span>
@@ -906,7 +1027,7 @@
           </section>
 
           <!-- USPS RESPONSIVE FIX (1 KOLOM DI HAPE) -->
-          <section class="max-w-5xl mx-auto px-4 py-10 sm:py-14">
+          <section class="max-w-5xl mx-auto px-4 pb-10 sm:pb-14">
             <div class="text-center mb-6 sm:mb-10">
               <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-xl sm:text-3xl">${state.uspSectionTitle[lang] || ''}</h2>
             </div>
@@ -1062,6 +1183,48 @@
     function setLanguage(lang) {
       currentLang = lang;
       renderPage();
+      startTimer();
+    }
+
+    let timerInterval;
+    function startTimer() {
+      if(timerInterval) clearInterval(timerInterval);
+      if(!data.showCountdown || !data.countdownTarget) return;
+
+      const targetTime = new Date(data.countdownTarget).getTime();
+
+      function update() {
+        const now = new Date().getTime();
+        const diff = targetTime - now;
+
+        const dEl = document.getElementById('cd-d');
+        const hEl = document.getElementById('cd-h');
+        const mEl = document.getElementById('cd-m');
+        const sEl = document.getElementById('cd-s');
+
+        if(!dEl) return;
+
+        if(diff <= 0) {
+          dEl.innerText = "00";
+          hEl.innerText = "00";
+          mEl.innerText = "00";
+          sEl.innerText = "00";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        dEl.innerText = days < 10 ? '0' + days : days;
+        hEl.innerText = hours < 10 ? '0' + hours : hours;
+        mEl.innerText = mins < 10 ? '0' + mins : mins;
+        sEl.innerText = secs < 10 ? '0' + secs : secs;
+      }
+
+      update();
+      timerInterval = setInterval(update, 1000);
     }
 
     function renderPage() {
@@ -1072,6 +1235,9 @@
       if(data.logoType === 'image' && data.logoUrl) {
         logoHtml = \`<img src="\${data.logoUrl}" alt="Logo" class="h-7 sm:h-9 w-auto object-contain flex-shrink-0">\`;
       }
+
+      const takenQuota = Math.max(0, data.totalQuota - data.remainingQuota);
+      const quotaPercent = Math.min(100, Math.round((takenQuota / data.totalQuota) * 100)) || 0;
 
       const labels = {
         parentName: lang === 'id' ? 'Nama Orang Tua / Wali' : 'Parent / Guardian Name',
@@ -1084,7 +1250,11 @@
         rsvpNeedWA: lang === 'id' ? '💬 Butuh Tanya Admin Dulu Via WA' : '💬 Need Admin Confirmation via WA',
         placeholderParent: lang === 'id' ? 'Contoh: Ibu Maria' : 'e.g., Mrs. Maria',
         placeholderChild: lang === 'id' ? 'Contoh: Kenzo' : 'e.g., Kenzo',
-        placeholderAge: lang === 'id' ? 'Contoh: 3 Tahun' : 'e.g., 3 Years'
+        placeholderAge: lang === 'id' ? 'Contoh: 3 Tahun' : 'e.g., 3 Years',
+        days: lang === 'id' ? 'Hari' : 'Days',
+        hours: lang === 'id' ? 'Jam' : 'Hours',
+        mins: lang === 'id' ? 'Menit' : 'Mins',
+        secs: lang === 'id' ? 'Detik' : 'Secs'
       };
 
       document.getElementById('page-content').innerHTML = \`
@@ -1094,20 +1264,20 @@
           </div>
 
           <header style="background-color: \${data.colorPrimary}" class="text-white sticky top-0 z-30 shadow-md">
-            <div class="max-w-6xl mx-auto px-2.5 sm:px-4 py-2 sm:py-3 flex justify-between items-center gap-1.5 overflow-hidden">
-              <div class="flex items-center gap-1.5 sm:gap-3 min-w-0">
+            <div class="max-w-6xl mx-auto px-3 sm:px-4 py-2 sm:py-3 flex justify-between items-center gap-2 overflow-hidden">
+              <div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
                 \${logoHtml}
                 <div class="min-w-0">
                   <div class="\${data.headingFont} font-normal text-xs sm:text-base leading-tight truncate">\${data.schoolName}</div>
                   <div class="hidden sm:block text-[10px] text-teal-200 uppercase tracking-widest font-semibold truncate">\${data.schoolTagline[lang] || ''}</div>
                 </div>
               </div>
-              <div class="flex items-center gap-1 sm:gap-3 flex-shrink-0">
-                <div class="bg-black/20 p-0.5 rounded-full flex border border-white/20 text-[9px] sm:text-xs">
-                  <button onclick="setLanguage('id')" class="px-1.5 py-0.5 sm:px-2.5 rounded-full font-bold \${lang === 'id' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇮🇩</button>
-                  <button onclick="setLanguage('en')" class="px-1.5 py-0.5 sm:px-2.5 rounded-full font-bold \${lang === 'en' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇬🇧</button>
+              <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                <div class="bg-black/20 p-1 rounded-full flex border border-white/20 text-[9px] sm:text-xs">
+                  <button onclick="setLanguage('id')" class="px-2 py-0.5 rounded-full font-bold \${lang === 'id' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇮🇩</button>
+                  <button onclick="setLanguage('en')" class="px-2 py-0.5 rounded-full font-bold \${lang === 'en' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇬🇧</button>
                 </div>
-                <a href="#daftar-form" style="background-color: \${data.colorAccent}" class="text-slate-950 font-extrabold text-[10px] sm:text-xs px-2 py-1 sm:px-4 sm:py-2 rounded-full shadow transition whitespace-nowrap truncate">\${data.btnPrimaryText[lang] || ''}</a>
+                <a href="#daftar-form" style="background-color: \${data.colorAccent}" class="hidden sm:inline-block text-slate-950 font-extrabold text-xs px-4 py-2 rounded-full shadow transition whitespace-nowrap">\${data.btnPrimaryText[lang] || ''}</a>
               </div>
             </div>
           </header>
@@ -1139,8 +1309,49 @@
             </div>
           </section>
 
-          <section class="max-w-5xl mx-auto px-4 -mt-4 sm:-mt-6 relative z-20">
-            <div class="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-100 p-3 sm:p-4 grid grid-cols-2 md:grid-cols-4 gap-2.5 text-center">
+          \${(data.showCountdown || data.showQuotaBar) ? \`
+          <section class="max-w-4xl mx-auto px-4 -mt-3 sm:-mt-5 relative z-20">
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-4 sm:p-6 space-y-4">
+              
+              \${data.showCountdown ? \`
+              <div class="text-center">
+                <p class="text-xs sm:text-sm font-bold text-slate-700 mb-2">\${data.countdownTitle[lang] || ''}</p>
+                <div class="grid grid-cols-4 gap-2 max-w-xs mx-auto">
+                  <div class="bg-slate-900 text-white p-2 rounded-xl text-center">
+                    <span id="cd-d" class="block font-bold text-base sm:text-xl text-yellow-400">00</span>
+                    <span class="text-[9px] uppercase tracking-wider text-slate-400 block">\${labels.days}</span>
+                  </div>
+                  <div class="bg-slate-900 text-white p-2 rounded-xl text-center">
+                    <span id="cd-h" class="block font-bold text-base sm:text-xl text-yellow-400">00</span>
+                    <span class="text-[9px] uppercase tracking-wider text-slate-400 block">\${labels.hours}</span>
+                  </div>
+                  <div class="bg-slate-900 text-white p-2 rounded-xl text-center">
+                    <span id="cd-m" class="block font-bold text-base sm:text-xl text-yellow-400">00</span>
+                    <span class="text-[9px] uppercase tracking-wider text-slate-400 block">\${labels.mins}</span>
+                  </div>
+                  <div class="bg-slate-900 text-white p-2 rounded-xl text-center">
+                    <span id="cd-s" class="block font-bold text-base sm:text-xl text-yellow-400">00</span>
+                    <span class="text-[9px] uppercase tracking-wider text-slate-400 block">\${labels.secs}</span>
+                  </div>
+                </div>
+              </div>\` : ''}
+
+              \${data.showQuotaBar ? \`
+              <div class="space-y-1.5 pt-2 border-t border-slate-100">
+                <div class="flex justify-between items-center text-xs font-bold">
+                  <span class="text-slate-800">\${data.quotaTitle[lang] || ''}</span>
+                  <span class="text-rose-600 font-extrabold">\${data.remainingQuota} / \${data.totalQuota} \${lang === 'id' ? 'Kursi Tersisa' : 'Seats Left'}</span>
+                </div>
+                <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden p-0.5 border border-slate-200">
+                  <div style="width: \${quotaPercent}%" class="bg-gradient-to-r from-amber-400 to-rose-500 h-full rounded-full transition-all duration-500"></div>
+                </div>
+              </div>\` : ''}
+
+            </div>
+          </section>\` : ''}
+
+          <section class="max-w-5xl mx-auto px-4 py-8 sm:py-10">
+            <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-slate-100 p-3 sm:p-4 grid grid-cols-2 md:grid-cols-4 gap-2.5 text-center">
               \${data.badges.map((b) => \`
                 <div class="p-2 bg-slate-50 sm:bg-transparent rounded-lg sm:rounded-none border sm:border-0 border-slate-100">
                   <span style="color: \${data.colorPrimary}" class="block \${data.headingFont} text-xs sm:text-base font-bold">\${b.title[lang] || ''}</span>
@@ -1150,7 +1361,7 @@
             </div>
           </section>
 
-          <section class="max-w-5xl mx-auto px-4 py-10 sm:py-14">
+          <section class="max-w-5xl mx-auto px-4 pb-10 sm:pb-14">
             <div class="text-center mb-6 sm:mb-10">
               <h2 style="color: \${data.colorPrimary}" class="\${data.headingFont} text-xl sm:text-3xl">\${data.uspSectionTitle[lang] || ''}</h2>
             </div>
@@ -1317,6 +1528,7 @@
     }
 
     renderPage();
+    startTimer();
   <\/script>
 </body>
 </html>`;
