@@ -38,6 +38,26 @@
     .view-tablet { width: 768px; height: 90%; margin: 20px auto; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); overflow-y: auto; border: 8px solid #334155; }
     .view-mobile { width: 375px; height: 85%; margin: 20px auto; border-radius: 36px; border: 10px solid #1e293b; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3); overflow-y: auto; }
 
+    /* OVERRIDE CSS KHUSUS SIMULATOR BUILDER HAPE (375px) */
+    .view-mobile .mobile-grid-1col {
+      grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+    .view-mobile .mobile-grid-2col {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    .view-mobile .mobile-hide-tagline {
+      display: none !important;
+    }
+    .view-mobile .mobile-title-truncate {
+      max-width: 95px !important;
+      font-size: 11px !important;
+    }
+    .view-mobile .mobile-btn-compact {
+      font-size: 10px !important;
+      padding: 4px 8px !important;
+      max-width: 110px !important;
+    }
+
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #f1f5f9; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
@@ -55,7 +75,7 @@
       <div>
         <h1 class="font-bold text-base sm:text-lg leading-tight flex items-center gap-2">
           Modular School Funnel Builder
-          <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-mono uppercase">Fixed Mobile Responsive</span>
+          <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-mono uppercase">100% Mobile Optimized</span>
         </h1>
         <p class="text-xs text-slate-400">Builder Landing Page Sekolah Modular Berbahasa Indonesia & Inggris</p>
       </div>
@@ -795,9 +815,9 @@
       const lang = currentPreviewLang;
       const sessionOptions = (state.sessions[lang] || '').split(',').map(s => `<option value="${s.trim()}">${s.trim()}</option>`).join('');
 
-      let logoHtml = `<div style="background-color: ${state.colorAccent}" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full text-slate-950 flex items-center justify-center font-bold text-sm sm:text-lg ${state.headingFont} flex-shrink-0">${state.schoolName.charAt(0)}</div>`;
+      let logoHtml = `<div style="background-color: ${state.colorAccent}" class="w-7 h-7 sm:w-9 sm:h-9 rounded-full text-slate-950 flex items-center justify-center font-bold text-xs sm:text-lg ${state.headingFont} flex-shrink-0">${state.schoolName.charAt(0)}</div>`;
       if(state.logoType === 'image' && state.logoUrl) {
-        logoHtml = `<img src="${state.logoUrl}" alt="Logo" class="h-8 sm:h-9 w-auto object-contain flex-shrink-0">`;
+        logoHtml = `<img src="${state.logoUrl}" alt="Logo" class="h-7 sm:h-9 w-auto object-contain flex-shrink-0">`;
       }
 
       const labels = {
@@ -817,33 +837,33 @@
       container.innerHTML = `
         <div class="bg-slate-50 text-slate-800 min-h-full font-jakarta">
           
-          <div style="background-color: ${state.colorAccent}" class="text-slate-950 text-[11px] sm:text-xs font-bold py-2 px-3 text-center">
+          <div style="background-color: ${state.colorAccent}" class="text-slate-950 text-[10px] sm:text-xs font-bold py-1.5 px-2.5 text-center leading-tight">
             ${state.urgencyText[lang] || ''}
           </div>
 
-          <!-- HEADER NAVBAR RESPONSIVE FIX -->
+          <!-- HEADER NAVBAR RESPONSIVE SAFE -->
           <header style="background-color: ${state.colorPrimary}" class="text-white sticky top-0 z-30 shadow-md">
-            <div class="max-w-6xl mx-auto px-3 sm:px-4 py-2.5 sm:py-3 flex justify-between items-center gap-2">
-              <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div class="max-w-6xl mx-auto px-2.5 sm:px-4 py-2 sm:py-3 flex justify-between items-center gap-1.5 overflow-hidden">
+              <div class="flex items-center gap-1.5 sm:gap-3 min-w-0">
                 ${logoHtml}
-                <div class="truncate">
-                  <div class="${state.headingFont} font-normal text-xs sm:text-base leading-tight truncate">${state.schoolName}</div>
-                  <div class="hidden sm:block text-[10px] text-teal-200 uppercase tracking-widest font-semibold truncate">${state.schoolTagline[lang] || ''}</div>
+                <div class="min-w-0">
+                  <div class="${state.headingFont} font-normal text-xs sm:text-base leading-tight truncate mobile-title-truncate">${state.schoolName}</div>
+                  <div class="hidden sm:block text-[10px] text-teal-200 uppercase tracking-widest font-semibold truncate mobile-hide-tagline">${state.schoolTagline[lang] || ''}</div>
                 </div>
               </div>
-              <div class="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
-                <div class="bg-black/20 p-0.5 rounded-full flex border border-white/20 text-[10px] sm:text-xs">
-                  <button onclick="setPreviewLanguage('id')" class="px-2 py-0.5 rounded-full font-bold ${lang === 'id' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇮🇩</button>
-                  <button onclick="setPreviewLanguage('en')" class="px-2 py-0.5 rounded-full font-bold ${lang === 'en' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇬🇧</button>
+              <div class="flex items-center gap-1 sm:gap-3 flex-shrink-0">
+                <div class="bg-black/20 p-0.5 rounded-full flex border border-white/20 text-[9px] sm:text-xs">
+                  <button onclick="setPreviewLanguage('id')" class="px-1.5 py-0.5 sm:px-2.5 rounded-full font-bold ${lang === 'id' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇮🇩</button>
+                  <button onclick="setPreviewLanguage('en')" class="px-1.5 py-0.5 sm:px-2.5 rounded-full font-bold ${lang === 'en' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇬🇧</button>
                 </div>
-                <a href="#daftar-form" style="background-color: ${state.colorAccent}" class="text-slate-950 font-extrabold text-[10px] sm:text-xs px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow transition whitespace-nowrap">${state.btnPrimaryText[lang] || ''}</a>
+                <a href="#daftar-form" style="background-color: ${state.colorAccent}" class="text-slate-950 font-extrabold text-[10px] sm:text-xs px-2 py-1 sm:px-4 sm:py-2 rounded-full shadow transition whitespace-nowrap truncate mobile-btn-compact">${state.btnPrimaryText[lang] || ''}</a>
               </div>
             </div>
           </header>
 
           <!-- HERO SECTION -->
           <section style="background-color: ${state.colorPrimary}" class="text-white py-8 sm:py-12 px-4 relative overflow-hidden">
-            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-6 sm:gap-8 items-center relative z-10">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center relative z-10 mobile-grid-1col">
               <div>
                 <span class="inline-block bg-white/10 text-white border border-white/20 text-[10px] sm:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 sm:mb-4">
                   ${state.heroBadge[lang] || ''}
@@ -867,30 +887,30 @@
 
               <div class="relative">
                 <div class="rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border-2 sm:border-4 border-white/10">
-                  <img src="${state.heroImg}" alt="Hero Image" class="w-full h-56 sm:h-80 object-cover">
+                  <img src="${state.heroImg}" alt="Hero Image" class="w-full h-52 sm:h-80 object-cover">
                 </div>
               </div>
             </div>
           </section>
 
-          <!-- RIBBON BADGES RESPONSIVE FIX -->
+          <!-- RIBBON BADGES (FIXED OVERLAP DI HAPE: 2 KOLOM RAPI / 1 KOLOM) -->
           <section class="max-w-5xl mx-auto px-4 -mt-4 sm:-mt-6 relative z-20">
-            <div class="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-100 p-3 sm:p-4 grid grid-cols-2 md:grid-cols-${Math.min(state.badges.length, 4)} gap-2 sm:gap-4 text-center">
-              ${state.badges.map((b, idx) => `
-                <div class="p-1.5 sm:p-2 ${idx % 2 !== 0 ? 'border-l border-slate-100' : ''}">
+            <div class="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-100 p-3 sm:p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 text-center mobile-grid-2col">
+              ${state.badges.map((b) => `
+                <div class="p-2 bg-slate-50 sm:bg-transparent rounded-lg sm:rounded-none border sm:border-0 border-slate-100">
                   <span style="color: ${state.colorPrimary}" class="block ${state.headingFont} text-xs sm:text-base font-bold">${b.title[lang] || ''}</span>
-                  <span class="text-[10px] sm:text-xs text-slate-500 block mt-0.5">${b.sub[lang] || ''}</span>
+                  <span class="text-[10px] sm:text-xs text-slate-500 block mt-0.5 leading-tight">${b.sub[lang] || ''}</span>
                 </div>
               `).join('')}
             </div>
           </section>
 
-          <!-- USPS RESPONSIVE FIX (STACK 1 KOLOM DI HP) -->
+          <!-- USPS RESPONSIVE FIX (1 KOLOM DI HAPE) -->
           <section class="max-w-5xl mx-auto px-4 py-10 sm:py-14">
             <div class="text-center mb-6 sm:mb-10">
               <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-xl sm:text-3xl">${state.uspSectionTitle[lang] || ''}</h2>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mobile-grid-1col">
               ${state.usps.map(u => `
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-start">
                   <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-lg mb-3 flex-shrink-0">
@@ -903,11 +923,11 @@
             </div>
           </section>
 
-          <!-- ACTIVITIES -->
+          <!-- ACTIVITIES (1 KOLOM DI HAPE) -->
           <section class="bg-white py-10 sm:py-14 border-y border-slate-100">
             <div class="max-w-5xl mx-auto px-4">
               <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-xl sm:text-3xl text-center mb-6 sm:mb-8">${state.actSectionTitle[lang] || ''}</h2>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mobile-grid-1col">
                 ${state.activities.map(a => `
                   <div class="p-3.5 sm:p-4 bg-slate-50 rounded-xl sm:rounded-2xl border border-slate-200 flex items-start gap-3">
                     <div class="text-xs sm:text-sm text-slate-700 leading-relaxed font-semibold">${a.title[lang] || ''}: <span class="font-normal text-slate-600">${a.desc[lang] || ''}</span></div>
@@ -917,11 +937,11 @@
             </div>
           </section>
 
-          <!-- TESTIMONIALS SECTION (TANPA FOTO) -->
+          <!-- TESTIMONIALS SECTION -->
           ${state.testimonials.length > 0 ? `
           <section class="max-w-4xl mx-auto px-4 py-10 sm:py-12">
             <h2 style="color: ${state.colorPrimary}" class="${state.headingFont} text-xl sm:text-2xl text-center mb-6">${state.testimonialSectionTitle[lang] || ''}</h2>
-            <div class="grid gap-3 sm:gap-4">
+            <div class="grid grid-cols-1 gap-3 sm:gap-4 mobile-grid-1col">
               ${state.testimonials.map(t => `
                 <div class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-100 shadow-sm flex items-start gap-3 sm:gap-4">
                   <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-emerald-50 text-emerald-600 flex-shrink-0 flex items-center justify-center font-bold text-xs sm:text-base">
@@ -967,7 +987,7 @@
                   <label class="block text-xs font-bold text-slate-700 mb-1">${labels.parentName}</label>
                   <input type="text" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs" placeholder="${labels.placeholderParent}">
                 </div>
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mobile-grid-1col">
                   <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">${labels.childName}</label>
                     <input type="text" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs" placeholder="${labels.placeholderChild}">
@@ -1048,9 +1068,9 @@
       const lang = currentLang;
       const sessionOptions = (data.sessions[lang] || '').split(',').map(s => \`<option value="\${s.trim()}">\${s.trim()}</option>\`).join('');
       
-      let logoHtml = \`<div style="background-color: \${data.colorAccent}" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full text-slate-950 flex items-center justify-center font-bold text-sm sm:text-lg \${data.headingFont} flex-shrink-0">\${data.schoolName.charAt(0)}</div>\`;
+      let logoHtml = \`<div style="background-color: \${data.colorAccent}" class="w-7 h-7 sm:w-9 sm:h-9 rounded-full text-slate-950 flex items-center justify-center font-bold text-xs sm:text-lg \${data.headingFont} flex-shrink-0">\${data.schoolName.charAt(0)}</div>\`;
       if(data.logoType === 'image' && data.logoUrl) {
-        logoHtml = \`<img src="\${data.logoUrl}" alt="Logo" class="h-8 sm:h-9 w-auto object-contain flex-shrink-0">\`;
+        logoHtml = \`<img src="\${data.logoUrl}" alt="Logo" class="h-7 sm:h-9 w-auto object-contain flex-shrink-0">\`;
       }
 
       const labels = {
@@ -1069,31 +1089,31 @@
 
       document.getElementById('page-content').innerHTML = \`
         <div class="bg-slate-50 text-slate-800 min-h-full font-jakarta">
-          <div style="background-color: \${data.colorAccent}" class="text-slate-950 text-[11px] sm:text-xs font-bold py-2 px-3 text-center">
+          <div style="background-color: \${data.colorAccent}" class="text-slate-950 text-[10px] sm:text-xs font-bold py-1.5 px-2.5 text-center leading-tight">
             \${data.urgencyText[lang] || ''}
           </div>
 
           <header style="background-color: \${data.colorPrimary}" class="text-white sticky top-0 z-30 shadow-md">
-            <div class="max-w-6xl mx-auto px-3 sm:px-4 py-2.5 sm:py-3 flex justify-between items-center gap-2">
-              <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div class="max-w-6xl mx-auto px-2.5 sm:px-4 py-2 sm:py-3 flex justify-between items-center gap-1.5 overflow-hidden">
+              <div class="flex items-center gap-1.5 sm:gap-3 min-w-0">
                 \${logoHtml}
-                <div class="truncate">
+                <div class="min-w-0">
                   <div class="\${data.headingFont} font-normal text-xs sm:text-base leading-tight truncate">\${data.schoolName}</div>
                   <div class="hidden sm:block text-[10px] text-teal-200 uppercase tracking-widest font-semibold truncate">\${data.schoolTagline[lang] || ''}</div>
                 </div>
               </div>
-              <div class="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
-                <div class="bg-black/20 p-0.5 rounded-full flex border border-white/20 text-[10px] sm:text-xs">
-                  <button onclick="setLanguage('id')" class="px-2 py-0.5 rounded-full font-bold \${lang === 'id' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇮🇩</button>
-                  <button onclick="setLanguage('en')" class="px-2 py-0.5 rounded-full font-bold \${lang === 'en' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇬🇧</button>
+              <div class="flex items-center gap-1 sm:gap-3 flex-shrink-0">
+                <div class="bg-black/20 p-0.5 rounded-full flex border border-white/20 text-[9px] sm:text-xs">
+                  <button onclick="setLanguage('id')" class="px-1.5 py-0.5 sm:px-2.5 rounded-full font-bold \${lang === 'id' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇮🇩</button>
+                  <button onclick="setLanguage('en')" class="px-1.5 py-0.5 sm:px-2.5 rounded-full font-bold \${lang === 'en' ? 'bg-white text-slate-900 shadow' : 'text-white/80'}">🇬🇧</button>
                 </div>
-                <a href="#daftar-form" style="background-color: \${data.colorAccent}" class="text-slate-950 font-extrabold text-[10px] sm:text-xs px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow transition whitespace-nowrap">\${data.btnPrimaryText[lang] || ''}</a>
+                <a href="#daftar-form" style="background-color: \${data.colorAccent}" class="text-slate-950 font-extrabold text-[10px] sm:text-xs px-2 py-1 sm:px-4 sm:py-2 rounded-full shadow transition whitespace-nowrap truncate">\${data.btnPrimaryText[lang] || ''}</a>
               </div>
             </div>
           </header>
 
           <section style="background-color: \${data.colorPrimary}" class="text-white py-8 sm:py-12 px-4 relative overflow-hidden">
-            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-6 sm:gap-8 items-center relative z-10">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center relative z-10">
               <div>
                 <span class="inline-block bg-white/10 text-white border border-white/20 text-[10px] sm:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 sm:mb-4">
                   \${data.heroBadge[lang] || ''}
@@ -1114,17 +1134,17 @@
                 </div>
               </div>
               <div>
-                <img src="\${data.heroImg}" alt="Hero" class="w-full h-56 sm:h-80 object-cover rounded-2xl sm:rounded-3xl shadow-2xl border-2 sm:border-4 border-white/10">
+                <img src="\${data.heroImg}" alt="Hero" class="w-full h-52 sm:h-80 object-cover rounded-2xl sm:rounded-3xl shadow-2xl border-2 sm:border-4 border-white/10">
               </div>
             </div>
           </section>
 
           <section class="max-w-5xl mx-auto px-4 -mt-4 sm:-mt-6 relative z-20">
-            <div class="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-100 p-3 sm:p-4 grid grid-cols-2 md:grid-cols-\${Math.min(data.badges.length, 4)} gap-2 sm:gap-4 text-center">
-              \${data.badges.map((b, idx) => \`
-                <div class="p-1.5 sm:p-2 \${idx % 2 !== 0 ? 'border-l border-slate-100' : ''}">
+            <div class="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-100 p-3 sm:p-4 grid grid-cols-2 md:grid-cols-4 gap-2.5 text-center">
+              \${data.badges.map((b) => \`
+                <div class="p-2 bg-slate-50 sm:bg-transparent rounded-lg sm:rounded-none border sm:border-0 border-slate-100">
                   <span style="color: \${data.colorPrimary}" class="block \${data.headingFont} text-xs sm:text-base font-bold">\${b.title[lang] || ''}</span>
-                  <span class="text-[10px] sm:text-xs text-slate-500 block mt-0.5">\${b.sub[lang] || ''}</span>
+                  <span class="text-[10px] sm:text-xs text-slate-500 block mt-0.5 leading-tight">\${b.sub[lang] || ''}</span>
                 </div>
               \`).join('')}
             </div>
@@ -1134,7 +1154,7 @@
             <div class="text-center mb-6 sm:mb-10">
               <h2 style="color: \${data.colorPrimary}" class="\${data.headingFont} text-xl sm:text-3xl">\${data.uspSectionTitle[lang] || ''}</h2>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
               \${data.usps.map(u => \`
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-start">
                   <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-lg mb-3 flex-shrink-0"><i class="fas \${u.icon}"></i></div>
@@ -1148,7 +1168,7 @@
           <section class="bg-white py-10 sm:py-14 border-y border-slate-100">
             <div class="max-w-5xl mx-auto px-4">
               <h2 style="color: \${data.colorPrimary}" class="\${data.headingFont} text-xl sm:text-3xl text-center mb-6 sm:mb-8">\${data.actSectionTitle[lang] || ''}</h2>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 \${data.activities.map(a => \`
                   <div class="p-3.5 sm:p-4 bg-slate-50 rounded-xl sm:rounded-2xl border border-slate-200 flex items-start gap-3">
                     <div class="text-xs sm:text-sm text-slate-700 leading-relaxed font-semibold">\${a.title[lang] || ''}: <span class="font-normal text-slate-600">\${a.desc[lang] || ''}</span></div>
@@ -1161,7 +1181,7 @@
           \${data.testimonials.length > 0 ? \`
           <section class="max-w-4xl mx-auto px-4 py-10 sm:py-12">
             <h2 style="color: \${data.colorPrimary}" class="\${data.headingFont} text-xl sm:text-2xl text-center mb-6">\${data.testimonialSectionTitle[lang] || ''}</h2>
-            <div class="grid gap-3 sm:gap-4">
+            <div class="grid grid-cols-1 gap-3 sm:gap-4">
               \${data.testimonials.map(t => \`
                 <div class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-100 shadow-sm flex items-start gap-3 sm:gap-4">
                   <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-emerald-50 text-emerald-600 flex-shrink-0 flex items-center justify-center font-bold text-xs sm:text-base">
@@ -1205,7 +1225,7 @@
                   <label class="block text-xs font-bold text-slate-700 mb-1">\${labels.parentName}</label>
                   <input type="text" id="parentName" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs" placeholder="\${labels.placeholderParent}">
                 </div>
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">\${labels.childName}</label>
                     <input type="text" id="childName" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs" placeholder="\${labels.placeholderChild}">
